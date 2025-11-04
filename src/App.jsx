@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
 import Login from "./pages/Login";
-import DeveloperDashboard from "./pages/developer/DeveloperDashboard";
+import DeveloperDashboard from "./pages/Developer/DeveloperDashboard";
 import PrivateRoute from "./routes/PrivateRoute";
 import Layout from "./layouts/Layout";
 import Businesses from "./pages/Businesses/businesses";
