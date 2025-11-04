@@ -1,0 +1,45 @@
+@import "tailwindcss";
+
+* {
+    letter-spacing: 0.6px !important;
+    transition: all 0.3s ease-in-out !important;
+}
+
+button {
+    cursor: pointer;
+}
+
+/* Remove arrows/icons for number inputs */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield; /* Firefox */
+}
+
+/* Remove calendar icon for date inputs */
+input[type="date"]::-webkit-calendar-picker-indicator {
+    display: none;
+    -webkit-appearance: none;
+}
+
+/* Optional: remove clear (X) button for search inputs if needed */
+input[type="search"]::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+}
+
+/* Open date picker on focus */
+input[type="date"]:focus {
+    outline: none; /* optional */
+    cursor: pointer;
+}
+
+/* Optional: style focus state */
+input[type="date"]:focus,
+input[type="number"]:focus {
+    border-color: #3b82f6; /* Tailwind blue-500 */
+    box-shadow: 0 0 0 1px #3b82f6;
+}
