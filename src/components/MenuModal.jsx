@@ -40,10 +40,7 @@ export default function MenuModal({ onClose }) {
       {/* Navigation */}
       <div className="space-y-2">
         <NavItem icon={<Home size={18} />} label="Dashboard" onClick={() => handleNavigate("/")} />
-        <NavItem icon={<User size={18} />} label="Profile" onClick={() => handleNavigate("/profile")} />
-        <NavItem icon={<Settings size={18} />} label="Settings" onClick={() => handleNavigate("/settings")} />
         <NavItem icon={<Building2 size={18} />} label="Businesses" onClick={() => handleNavigate("/businesses")} />
-        <NavItem icon={<LogOut size={18} />} label="Logout" onClick={() => handleNavigate("/logout")} />
       </div>
     </Modal>
   );
