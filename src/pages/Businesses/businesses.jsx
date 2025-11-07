@@ -16,6 +16,105 @@ export default function Businesses() {
     { id: 1, name: "TexTrade Garments", owner: "Andrew", location: "Karachi" },
     { id: 2, name: "Alpha Textiles", owner: "Hasan", location: "Lahore" },
     { id: 3, name: "BlueThread Mills", owner: "Ali", location: "Faisalabad" },
+    { id: 1, name: "TexTrade Garments", owner: "Andrew", location: "Karachi" },
+    { id: 2, name: "Alpha Textiles", owner: "Hasan", location: "Lahore" },
+    { id: 3, name: "BlueThread Mills", owner: "Ali", location: "Faisalabad" },
+    { id: 1, name: "TexTrade Garments", owner: "Andrew", location: "Karachi" },
+    { id: 2, name: "Alpha Textiles", owner: "Hasan", location: "Lahore" },
+    { id: 3, name: "BlueThread Mills", owner: "Ali", location: "Faisalabad" },
+    { id: 1, name: "TexTrade Garments", owner: "Andrew", location: "Karachi" },
+    { id: 2, name: "Alpha Textiles", owner: "Hasan", location: "Lahore" },
+    { id: 3, name: "BlueThread Mills", owner: "Ali", location: "Faisalabad" },
+    { id: 1, name: "TexTrade Garments", owner: "Andrew", location: "Karachi" },
+    { id: 2, name: "Alpha Textiles", owner: "Hasan", location: "Lahore" },
+    { id: 3, name: "BlueThread Mills", owner: "Ali", location: "Faisalabad" },
+    { id: 1, name: "TexTrade Garments", owner: "Andrew", location: "Karachi" },
+    { id: 2, name: "Alpha Textiles", owner: "Hasan", location: "Lahore" },
+    { id: 3, name: "BlueThread Mills", owner: "Ali", location: "Faisalabad" },
+    { id: 1, name: "TexTrade Garments", owner: "Andrew", location: "Karachi" },
+    { id: 2, name: "Alpha Textiles", owner: "Hasan", location: "Lahore" },
+    { id: 3, name: "BlueThread Mills", owner: "Ali", location: "Faisalabad" },
+    { id: 1, name: "TexTrade Garments", owner: "Andrew", location: "Karachi" },
+    { id: 2, name: "Alpha Textiles", owner: "Hasan", location: "Lahore" },
+    { id: 3, name: "BlueThread Mills", owner: "Ali", location: "Faisalabad" },
+    { id: 1, name: "TexTrade Garments", owner: "Andrew", location: "Karachi" },
+    { id: 2, name: "Alpha Textiles", owner: "Hasan", location: "Lahore" },
+    { id: 3, name: "BlueThread Mills", owner: "Ali", location: "Faisalabad" },
+    { id: 1, name: "TexTrade Garments", owner: "Andrew", location: "Karachi" },
+    { id: 2, name: "Alpha Textiles", owner: "Hasan", location: "Lahore" },
+    { id: 3, name: "BlueThread Mills", owner: "Ali", location: "Faisalabad" },
+    { id: 1, name: "TexTrade Garments", owner: "Andrew", location: "Karachi" },
+    { id: 2, name: "Alpha Textiles", owner: "Hasan", location: "Lahore" },
+    { id: 3, name: "BlueThread Mills", owner: "Ali", location: "Faisalabad" },
+    { id: 1, name: "TexTrade Garments", owner: "Andrew", location: "Karachi" },
+    { id: 2, name: "Alpha Textiles", owner: "Hasan", location: "Lahore" },
+    { id: 3, name: "BlueThread Mills", owner: "Ali", location: "Faisalabad" },
+    { id: 1, name: "TexTrade Garments", owner: "Andrew", location: "Karachi" },
+    { id: 2, name: "Alpha Textiles", owner: "Hasan", location: "Lahore" },
+    { id: 3, name: "BlueThread Mills", owner: "Ali", location: "Faisalabad" },
+    { id: 1, name: "TexTrade Garments", owner: "Andrew", location: "Karachi" },
+    { id: 2, name: "Alpha Textiles", owner: "Hasan", location: "Lahore" },
+    { id: 3, name: "BlueThread Mills", owner: "Ali", location: "Faisalabad" },
+    { id: 1, name: "TexTrade Garments", owner: "Andrew", location: "Karachi" },
+    { id: 2, name: "Alpha Textiles", owner: "Hasan", location: "Lahore" },
+    { id: 3, name: "BlueThread Mills", owner: "Ali", location: "Faisalabad" },
+    { id: 1, name: "TexTrade Garments", owner: "Andrew", location: "Karachi" },
+    { id: 2, name: "Alpha Textiles", owner: "Hasan", location: "Lahore" },
+    { id: 3, name: "BlueThread Mills", owner: "Ali", location: "Faisalabad" },
+    { id: 1, name: "TexTrade Garments", owner: "Andrew", location: "Karachi" },
+    { id: 2, name: "Alpha Textiles", owner: "Hasan", location: "Lahore" },
+    { id: 3, name: "BlueThread Mills", owner: "Ali", location: "Faisalabad" },
+    { id: 1, name: "TexTrade Garments", owner: "Andrew", location: "Karachi" },
+    { id: 2, name: "Alpha Textiles", owner: "Hasan", location: "Lahore" },
+    { id: 3, name: "BlueThread Mills", owner: "Ali", location: "Faisalabad" },
+    { id: 1, name: "TexTrade Garments", owner: "Andrew", location: "Karachi" },
+    { id: 2, name: "Alpha Textiles", owner: "Hasan", location: "Lahore" },
+    { id: 3, name: "BlueThread Mills", owner: "Ali", location: "Faisalabad" },
+    { id: 1, name: "TexTrade Garments", owner: "Andrew", location: "Karachi" },
+    { id: 2, name: "Alpha Textiles", owner: "Hasan", location: "Lahore" },
+    { id: 3, name: "BlueThread Mills", owner: "Ali", location: "Faisalabad" },
+    { id: 1, name: "TexTrade Garments", owner: "Andrew", location: "Karachi" },
+    { id: 2, name: "Alpha Textiles", owner: "Hasan", location: "Lahore" },
+    { id: 3, name: "BlueThread Mills", owner: "Ali", location: "Faisalabad" },
+    { id: 1, name: "TexTrade Garments", owner: "Andrew", location: "Karachi" },
+    { id: 2, name: "Alpha Textiles", owner: "Hasan", location: "Lahore" },
+    { id: 3, name: "BlueThread Mills", owner: "Ali", location: "Faisalabad" },
+    { id: 1, name: "TexTrade Garments", owner: "Andrew", location: "Karachi" },
+    { id: 2, name: "Alpha Textiles", owner: "Hasan", location: "Lahore" },
+    { id: 3, name: "BlueThread Mills", owner: "Ali", location: "Faisalabad" },
+    { id: 1, name: "TexTrade Garments", owner: "Andrew", location: "Karachi" },
+    { id: 2, name: "Alpha Textiles", owner: "Hasan", location: "Lahore" },
+    { id: 3, name: "BlueThread Mills", owner: "Ali", location: "Faisalabad" },
+    { id: 1, name: "TexTrade Garments", owner: "Andrew", location: "Karachi" },
+    { id: 2, name: "Alpha Textiles", owner: "Hasan", location: "Lahore" },
+    { id: 3, name: "BlueThread Mills", owner: "Ali", location: "Faisalabad" },
+    { id: 1, name: "TexTrade Garments", owner: "Andrew", location: "Karachi" },
+    { id: 2, name: "Alpha Textiles", owner: "Hasan", location: "Lahore" },
+    { id: 3, name: "BlueThread Mills", owner: "Ali", location: "Faisalabad" },
+    { id: 1, name: "TexTrade Garments", owner: "Andrew", location: "Karachi" },
+    { id: 2, name: "Alpha Textiles", owner: "Hasan", location: "Lahore" },
+    { id: 3, name: "BlueThread Mills", owner: "Ali", location: "Faisalabad" },
+    { id: 1, name: "TexTrade Garments", owner: "Andrew", location: "Karachi" },
+    { id: 2, name: "Alpha Textiles", owner: "Hasan", location: "Lahore" },
+    { id: 3, name: "BlueThread Mills", owner: "Ali", location: "Faisalabad" },
+    { id: 1, name: "TexTrade Garments", owner: "Andrew", location: "Karachi" },
+    { id: 2, name: "Alpha Textiles", owner: "Hasan", location: "Lahore" },
+    { id: 3, name: "BlueThread Mills", owner: "Ali", location: "Faisalabad" },
+    { id: 1, name: "TexTrade Garments", owner: "Andrew", location: "Karachi" },
+    { id: 2, name: "Alpha Textiles", owner: "Hasan", location: "Lahore" },
+    { id: 3, name: "BlueThread Mills", owner: "Ali", location: "Faisalabad" },
+    { id: 1, name: "TexTrade Garments", owner: "Andrew", location: "Karachi" },
+    { id: 2, name: "Alpha Textiles", owner: "Hasan", location: "Lahore" },
+    { id: 3, name: "BlueThread Mills", owner: "Ali", location: "Faisalabad" },
+    { id: 1, name: "TexTrade Garments", owner: "Andrew", location: "Karachi" },
+    { id: 2, name: "Alpha Textiles", owner: "Hasan", location: "Lahore" },
+    { id: 3, name: "BlueThread Mills", owner: "Ali", location: "Faisalabad" },
+    { id: 1, name: "TexTrade Garments", owner: "Andrew", location: "Karachi" },
+    { id: 2, name: "Alpha Textiles", owner: "Hasan", location: "Lahore" },
+    { id: 3, name: "BlueThread Mills", owner: "Ali", location: "Faisalabad" },
+    { id: 1, name: "TexTrade Garments", owner: "Andrew", location: "Karachi" },
+    { id: 2, name: "Alpha Textiles", owner: "Hasan", location: "Lahore" },
+    { id: 3, name: "BlueThread Mills", owner: "Ali", location: "Faisalabad" },
   ];
 
   // close context menu when clicked anywhere
@@ -26,18 +125,16 @@ export default function Businesses() {
   }, []);
 
   return (
-    <div className="p-6 w-full relative">
-      <div className="flex items-center justify-between mb-4">
+    <div className="w-full h-full overflow-hidden grid grid-rows-[auto_1fr] gap-4">
+      {/* 🔹 Header Section */}
+      <div className="flex items-center justify-between">
         <h1 className="text-3xl font-bold">Businesses</h1>
         <Button onClick={() => setIsCreateModalOpen(true)}>Add Business</Button>
       </div>
 
-      {/* Table container */}
-      <div
-        id="tableContainer"
-        className="border border-gray-300 rounded-2xl p-1 shadow-sm select-none"
-      >
-        {/* Header Row */}
+      {/* 🔹 Table Container */}
+      <div className="border border-gray-300 rounded-2xl p-1 shadow-sm grid grid-rows-[auto_1fr] overflow-hidden">
+        {/* Header Row (fixed) */}
         <div className="grid [grid-template-columns:60px_1.5fr_1fr_1fr] bg-[#127475] text-white rounded-xl px-4 py-1.5">
           <div>#</div>
           <div>Business Name</div>
@@ -45,37 +142,38 @@ export default function Businesses() {
           <div>Location</div>
         </div>
 
-        {/* Data Rows */}
-        {businesses.map((biz, index) => (
-          <div
-            key={biz.id}
-            onClick={() => setSelectedBusiness(biz)}
-            onContextMenu={(e) => {
-              e.preventDefault();
-              setContextMenu({
-                x: e.pageX,
-                y: e.pageY,
-                business: biz,
-              });
-            }}
-            className="grid [grid-template-columns:60px_1.5fr_1fr_1fr] border-b border-gray-300 last:border-0 px-4 py-2 hover:bg-gray-100 cursor-pointer"
-          >
-            <div>{index + 1}</div>
-            <div>{biz.name}</div>
-            <div>{biz.owner}</div>
-            <div>{biz.location}</div>
-          </div>
-        ))}
-
-        {/* Empty state */}
-        {businesses.length === 0 && (
-          <div className="p-6 text-center text-gray-500">
-            No businesses found.
-          </div>
-        )}
+        {/* Scrollable Body */}
+        <div className="overflow-y-auto">
+          {businesses.length === 0 ? (
+            <div className="p-6 text-center text-gray-500">
+              No businesses found.
+            </div>
+          ) : (
+            businesses.map((biz, index) => (
+              <div
+                key={biz.id}
+                onClick={() => setSelectedBusiness(biz)}
+                onContextMenu={(e) => {
+                  e.preventDefault();
+                  setContextMenu({
+                    x: e.pageX,
+                    y: e.pageY,
+                    business: biz,
+                  });
+                }}
+                className="grid [grid-template-columns:60px_1.5fr_1fr_1fr] border-b border-gray-300 last:border-0 px-4 py-2 hover:bg-gray-100 cursor-pointer"
+              >
+                <div>{index + 1}</div>
+                <div>{biz.name}</div>
+                <div>{biz.owner}</div>
+                <div>{biz.location}</div>
+              </div>
+            ))
+          )}
+        </div>
       </div>
 
-      {/* Right-click Context Menu */}
+      {/* Context Menu */}
       {contextMenu && (
         <div
           style={{
@@ -120,7 +218,6 @@ export default function Businesses() {
           <AddBusinessModal onClose={() => setIsCreateModalOpen(false)} />
         )}
 
-        {/* Business Details Modal */}
         {selectedBusiness && (
           <motion.div
             className="fixed inset-0 bg-black/40 flex items-center justify-center z-50"
