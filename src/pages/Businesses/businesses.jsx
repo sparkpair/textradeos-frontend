@@ -125,7 +125,7 @@ export default function Businesses() {
   }, []);
 
   return (
-    <div className="px-6 w-full h-full overflow-hidden grid grid-rows-[auto_1fr] gap-4">
+    <div className="w-full h-full overflow-hidden grid grid-rows-[auto_1fr] gap-4">
       {/* 🔹 Header Section */}
       <div className="flex items-center justify-between">
         <h1 className="text-3xl font-bold">Businesses</h1>
