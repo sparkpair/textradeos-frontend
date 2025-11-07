@@ -143,7 +143,7 @@ export default function Businesses() {
         </div>
 
         {/* Scrollable Body */}
-        <div className="overflow-y-auto pb-18">
+        <div className="overflow-y-auto pb-16">
           {businesses.length === 0 ? (
             <div className="p-6 text-center text-gray-500">
               No businesses found.
