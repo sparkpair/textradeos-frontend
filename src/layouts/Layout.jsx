@@ -2,22 +2,55 @@ import { Outlet } from "react-router-dom";
 import MainMenu from "../components/MainMenu";
 import ProfileMenu from "../components/ProfileMenu";
 import NotificationsMenu from "../components/NotificationsMenu";
+import Button from "../components/Button";
+import { Building2, Truck, Users } from "lucide-react";
 
 export default function Layout({ children }) {
   return (
-    <div className="h-screen flex flex-col bg-[#eef5f5] overflow-hidden">
-      {/* <h1 className="fixed top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 text-[8rem] blur-xs font-medium tracking-wide z-0 opacity-25 text-[#127475] pointer-events-none">TexTradeOS</h1> */}
+    <div className="h-screen flex flex-col bg-[#eef5f5] overflow-hidden relative">
       {/* 🔹 Main Content */}
-      <div className="p-5 h-full">
-        {children || <Outlet />}
-      </div>
-      <div className="fixed bottom-0 left-0 p-8 pt-0 flex justify-between w-full">
-        <MainMenu />
+      <div className="p-5 h-full overflow-y-auto">{children || <Outlet />}</div>
 
-        <div className="flex gap-2">
-          <NotificationsMenu />
-          <ProfileMenu />
-        </div>
+      {/* 🔹 Floating Bottom Bar */}
+      <div className="fixed bottom-3 left-1/2 -translate-x-1/2 flex items-center justify-between space-x-1 bg-[#f8fbfb] shadow-md border border-gray-300 p-1 rounded-2xl">
+        <Button
+          variant="normal-btn"
+          onClick={() => setOpen(true)}
+          Icon="Menu"
+        />
+
+        {/* 🔹 Separator */}
+        <div className="w-px h-5 bg-gray-300" />
+
+        <Button
+          variant="normal-btn"
+          onClick={() => setOpen(true)}
+          Icon="LayoutDashboard"
+        />
+        <Button
+          variant="normal-btn"
+          onClick={() => setOpen(true)}
+          Icon="Building2"
+        />
+        <Button
+          variant="normal-btn"
+          onClick={() => setOpen(true)}
+          Icon="Users"
+        />
+
+        {/* 🔹 Separator */}
+        <div className="w-px h-5 bg-gray-300" />
+
+        <Button
+          variant="normal-btn"
+          onClick={() => setOpen(true)}
+          Icon="Bell"
+        />
+        <Button
+          variant="normal-btn"
+          onClick={() => setOpen(true)}
+          Icon="User"
+        />
       </div>
     </div>
   );

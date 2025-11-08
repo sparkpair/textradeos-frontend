@@ -1,40 +1,43 @@
-export default function Button({ children, variant="green-btn", className, ...props }) {
+import * as Icons from "lucide-react";
+
+export default function Button({
+  children,
+  variant = "green-btn",
+  className = "",
+  Icon,
+  title,
+  ...props
+}) {
   let styles = "";
+
   switch (variant) {
-    case 'green-btn':
-        styles = "bg-[#127475] text-white hover:bg-[#0c5f60]";
+    case "green-btn":
+      styles = "bg-[#127475] text-white hover:bg-[#0c5f60] active:scale-95 px-4 py-2 rounded-xl";
       break;
-    
-    case 'border-btn':
-        styles = "bg-[#f8fbfb] hover:bg-[#f0f6f6] text-[#0c5f60] border border-gray-300";
+
+    case "border-btn":
+      styles = "bg-[#f8fbfb] hover:bg-[#f0f6f6] text-[#0c5f60] border border-gray-300 p-3 rounded-xl flex items-center gap-2";
+      break;
+
+    case "normal-btn":
+      styles = "bg-[#f8fbfb] hover:bg-[#127475]/15 text-[#0c5f60] p-3 rounded-xl flex items-center gap-2";
       break;
 
     default:
-        styles = "bg-[#127475] text-white hover:bg-[#0c5f60]";
+      styles = "bg-[#127475] text-white hover:bg-[#0c5f60]";
       break;
   }
 
-  // return (
-  //   <button
-  //     {...props}
-  //     className={`px-4 py-2 rounded-xl transition bg-[#127475] text-white hover:bg-[#0c5f60] ${className}`}
-  //   >
-  //     {children}
-  //   </button>
-  // );
-  
-  return variant == 'green-btn' ? 
-    (<button
+  // Resolve icon name from Lucide
+  const LucideIcon = Icon ? Icons[Icon] : null;
+
+  return (
+    <button
       {...props}
-      className={`active:scale-95 px-4 py-2 rounded-xl transition bg-[#127475] text-white hover:bg-[#0c5f60] ${className}`}
+      className={`${styles} ${className}`}
     >
-      {children}
-    </button>)
-    : variant == 'border-btn' ?
-    (<div className='bg-[#f8fbfb] shadow-md border border-gray-300 p-1 rounded-2xl'>
-        <button {...props} className="p-2 rounded-xl hover:bg-[#127475]/15 text-gray-700">
-          {children}
-        </button>
-    </div>)
-    : '';
+      {LucideIcon && <LucideIcon size={20} />}
+      {title && <span className="leading-0">{title}</span>}
+    </button>
+  );
 }

@@ -129,7 +129,7 @@ export default function Businesses() {
       {/* 🔹 Header Section */}
       <div className="flex items-center justify-between">
         <h1 className="text-3xl font-bold">Businesses</h1>
-        <Button onClick={() => setIsCreateModalOpen(true)}>Add Business</Button>
+        <Button onClick={() => setIsCreateModalOpen(true)} title="Add Business" />
       </div>
 
       {/* 🔹 Table Container */}
@@ -143,7 +143,7 @@ export default function Businesses() {
         </div>
 
         {/* Scrollable Body */}
-        <div className="overflow-y-auto pb-16">
+        <div className="overflow-y-auto pb-14">
           {businesses.length === 0 ? (
             <div className="p-6 text-center text-gray-500">
               No businesses found.
