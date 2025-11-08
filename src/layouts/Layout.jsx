@@ -2,6 +2,7 @@ import { Outlet } from "react-router-dom";
 import MainMenu from "../components/MainMenu";
 import ProfileMenu from "../components/ProfileMenu";
 import NotificationsMenu from "../components/NotificationsMenu";
+import Notifications from "../components/Notifications";
 
 export default function Layout({ children }) {
   return (
@@ -13,6 +14,8 @@ export default function Layout({ children }) {
       </div>
       <div className="fixed bottom-0 left-0 p-8 pt-0 flex justify-between w-full">
         <MainMenu />
+
+        <Notifications />
 
         <div className="flex gap-2">
           <NotificationsMenu />
