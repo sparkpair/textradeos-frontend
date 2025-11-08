@@ -36,8 +36,7 @@ export default function Button({
       {...props}
       className={`${styles} ${className}`}
     >
-      {LucideIcon && <LucideIcon size={20} />}
-      {title && <span className="leading-0">{title}</span>}
+      {children}
     </button>
   );
 }
