@@ -75,20 +75,19 @@ export default function Businesses() {
 
   const columns = [
     { label: "#", render: (_, i) => i + 1, width: "60px" },
-    { label: "Business Name", field: "name" },
-    { label: "Owner", field: "owner" },
-    { label: "Username", field: "username" },
-    { label: "Phone No.", field: "phone_no" },
-    { label: "Registration Date", field: "reg_date" },
-    { label: "Type", field: "type" },
-    { label: "Price", field: "price" },
-    { label: "Status", field: "status" },
+    { label: "Business Name", field: "name", width: "auto" },
+    { label: "Owner", field: "owner", width: "15%" },
+    { label: "Phone", field: "phone_no", width: "15%" },
+    { label: "Registration Date", field: "reg_date", width: "14%", },
+    { label: "Type", field: "type", width: "10%" },
+    { label: "Price", field: "price", width: "10%" },
+    { label: "Status", field: "status", width: "10%" },
   ];
 
   const contextMenuItems = [
-    { label: "View Details", onClick: (biz) => setSelectedBusiness(biz) },
-    { label: "Edit", onClick: handleEdit },
-    { label: "Delete", onClick: handleDelete, danger: true },
+    { label: "View Details", onClick: (row) => console.log(row) },
+    { label: "Edit", onClick: (row) => console.log("Edit:", row) },
+    { label: "Delete", onClick: (row) => console.log("Delete:", row), danger: true },
   ];
 
   return (
