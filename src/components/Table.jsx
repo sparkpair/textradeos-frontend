@@ -25,7 +25,7 @@ export default function Table({
   const gridTemplateColumns = columns.map(col => col.width || "1fr").join(" ");
 
   return (
-    <div className="relative border border-gray-300 rounded-2xl p-1 shadow-sm grid grid-rows-[auto_1fr] overflow-hidden">
+    <div className="relative border border-gray-300 rounded-2xl p-1 shadow-sm grid grid-rows-[auto_1fr] overflow-hidden text-nowrap">
       {/* Header */}
       <div
         className="grid bg-[#127475] text-white rounded-xl px-4 py-1.5"
