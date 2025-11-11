@@ -31,6 +31,8 @@ export default function Articles() {
         reg_date: formatDateWithDay(biz.registration_date),
       }));
       setArticles(flattened);
+      console.log(flattened);
+      
     } catch (error) {
       console.error("Failed to load articles:", error);
       alert("Failed to load articles");

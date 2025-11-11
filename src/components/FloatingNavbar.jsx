@@ -1,7 +1,6 @@
-import React from "react";
 import Button from "./Button";
 import SlidingButtons from "./SlidingButtons";
-import { Building2, LayoutDashboard, Menu, User, Users } from "lucide-react";
+import { Building2, LayoutDashboard, Menu, Shirt, User, Users } from "lucide-react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Dropdown from "./Dropdown";
 import { useAuth } from "../context/AuthContext";
@@ -59,6 +58,17 @@ function FloatingNavbar({ onMenuClick }) {
             onClick={() => navigate("/customers")}
           >
             <Users size={20} />
+          </Button>
+        )}
+
+        {/* 🔹 Customers – user only */}
+        {hasRole(["user"]) && (
+          <Button
+            variant="normal-btn"
+            active={currentPath === "/articles"}
+            onClick={() => navigate("/articles")}
+          >
+            <Shirt size={20} />
           </Button>
         )}
       </SlidingButtons>

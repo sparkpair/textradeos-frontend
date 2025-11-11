@@ -47,7 +47,7 @@ export default function App() {
                   }
                 />
                 <Route
-                  path="/customers"
+                  path="/articles"
                   element={
                     <PrivateRoute roles={["user"]}>
                       <Articles />
