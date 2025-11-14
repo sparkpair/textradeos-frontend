@@ -7,11 +7,14 @@ import Table from "../../components/Table";
 import axiosClient from "../../api/axiosClient";
 import { formatDateWithDay } from "../../utils/dateFormatter";
 import { useToast } from "../../context/ToastContext";
+import GenerateInvoiceModal from "../../components/Customers/GenerateInvoiceModal";
 
 export default function Customers() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedCustomer, setSelectedCustomer] = useState(null);
   const [editingCustomer, setEditingCustomer] = useState(null);
+  const [isInvoiceModalOpen, setIsInvoiceModalOpen] = useState(false);
+  const [invoicingCustomer, setInvoicingCustomer] = useState(null);
   const [customers, setCustomers] = useState([]);
   const [loading, setLoading] = useState(false);
   const { addToast } = useToast();
@@ -66,6 +69,11 @@ export default function Customers() {
       console.error("Failed to delete customer:", error);
       addToast("Failed to delete customer", "error");
     }
+  };
+
+  const handleInvoice = (customer) => {
+    setIsInvoiceModalOpen(true);
+    setInvoicingCustomer(customer);
   };
 
   const handleEdit = (customer) => {
@@ -136,10 +144,20 @@ export default function Customers() {
           />
         )}
 
+        {isInvoiceModalOpen && (
+          <GenerateInvoiceModal
+            onClose={() => {
+              setIsInvoiceModalOpen(false);
+              setInvoicingCustomer(null);
+            }}
+          />
+        )}
+
         {selectedCustomer && (
           <CustomerDetailsModal
             customer={selectedCustomer}
             onClose={() => setSelectedCustomer(null)}
+            onInvoice={handleInvoice}
             onEdit={handleEdit}
             onToggleStatus={handleToggleStatus}
           />

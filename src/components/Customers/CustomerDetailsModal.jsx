@@ -1,7 +1,7 @@
 import Modal from "../Modal";
 import Button from "../Button";
 
-export default function CustomerDetailsModal({ customer, onClose, onEdit, onToggleStatus }) {
+export default function CustomerDetailsModal({ customer, onClose, onInvoice, onEdit, onToggleStatus }) {
   if (!customer) return null;
 
   const isActive = customer.status === "Active";
@@ -33,6 +33,16 @@ export default function CustomerDetailsModal({ customer, onClose, onEdit, onTogg
       </div>
 
       <div className="mt-6 flex justify-end gap-2">
+        <Button
+          onClick={() => {
+            onClose();
+            onInvoice(customer);
+          }}
+          className="bg-green-600 hover:bg-green-700 text-white"
+        >
+          Invoice
+        </Button>
+
         <Button
           onClick={() => onToggleStatus && onToggleStatus(customer)}
           className={`${
