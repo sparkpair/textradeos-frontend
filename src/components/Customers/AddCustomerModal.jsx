@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import Modal from "../Modal";
 import Input from "../Input";
 import Button from "../Button";
-import { useToast } from "../../context/ToastContext";
 
 export default function AddCustomerModal({ onClose, onSave, initialData }) {
   const [form, setForm] = useState({
@@ -13,7 +12,6 @@ export default function AddCustomerModal({ onClose, onSave, initialData }) {
   });
 
   const [saving, setSaving] = useState(false);
-  const { addToast } = useToast();
 
   useEffect(() => {
     if (initialData) {

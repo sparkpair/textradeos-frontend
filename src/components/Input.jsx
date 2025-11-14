@@ -71,17 +71,31 @@ export default function Input({
 
   return (
     <div>
-      {label && <label className="block mb-1 text-gray-800">{label} {required || '(Optional)'}</label>}
-      <input
-        {...props}
-        ref={inputRef}
-        type={type === "amount" ? "text" : type}
-        value={displayValue}
-        onChange={handleChange}
-        onFocus={handleFocus}
-        inputMode={type === "amount" ? (allowDecimal ? "decimal" : "numeric") : undefined}
-        className={`w-full bg-[#f8fbfb] border border-gray-300 rounded-xl ps-4 p-2.5 focus:outline-none focus:ring-2 focus:ring-[#127475] text-gray-700 ${className}`}
-      />
+      {type == "labelInBox" ? <>
+        <div className={`w-full flex justify-between bg-[#f8fbfb] border border-gray-300 rounded-xl ps-4 p-2.5 focus:outline-none focus:ring-2 focus:ring-[#127475] text-gray-700 ${className}`}>
+          {label && <label className="text-gray-800 text-nowrap">{label} {required || '(Optional)'}</label>}
+          <input
+            ref={inputRef}
+            type={type === "amount" ? "text" : type}
+            value={displayValue || "0.00"}
+            onChange={handleChange}
+            inputMode={type === "amount" ? (allowDecimal ? "decimal" : "numeric") : undefined}
+            className="w-24 text-right bg-transparent focus:outline-none pr-1"
+          />
+        </div>
+      </> : <>
+        {label && <label className="block mb-1 text-gray-800">{label} {required || '(Optional)'}</label>}
+        <input
+          {...props}
+          ref={inputRef}
+          type={type === "amount" ? "text" : type}
+          value={displayValue}
+          onChange={handleChange}
+          onFocus={handleFocus}
+          inputMode={type === "amount" ? (allowDecimal ? "decimal" : "numeric") : undefined}
+          className={`w-full bg-[#f8fbfb] border border-gray-300 rounded-xl ps-4 p-2.5 focus:outline-none focus:ring-2 focus:ring-[#127475] text-gray-700 ${className}`}
+        />
+      </>}
     </div>
   );
 }

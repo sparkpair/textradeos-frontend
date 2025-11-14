@@ -4,6 +4,8 @@ import Button from "../Button";
 import { useToast } from "../../context/ToastContext";
 import Table from "../Table";
 import axiosClient from "../../api/axiosClient";
+import { formatDateWithDay } from "../../utils";
+import Input from "../Input";
 
 export default function GenerateInvoiceModal({ onClose }) {
   const [form, setForm] = useState({
@@ -18,12 +20,11 @@ export default function GenerateInvoiceModal({ onClose }) {
   const [articles, setArticles] = useState([]);
 
   const columns = [
-    { label: "#", render: (_, i) => i + 1, width: "40px" },
-    { label: "Customer Name", field: "name", width: "auto" },
-    { label: "Person Name", field: "person_name", width: "12%" },
-    { label: "Phone", field: "phone_no", width: "15%", align: "center" },
-    { label: "Address", field: "address", width: "18%", align: "center" },
-    { label: "Status", field: "status", width: "10%", align: "center" },
+    { label: "", width: "26px", middleAlign: "center", align: "left", render: () => <input type="checkbox" /> },
+    { label: "Quantity", width: "15%", middleAlign: "center", render: () => <input type="number" min="1" defaultValue="1" className="w-16 bg-[#f8fbfb] border border-gray-300 rounded-lg px-1.5 py-0.5 focus:outline-none text-gray-700" /> },
+    { label: "Article No.", field: "article_no", width: "30%", middleAlign: "center" },
+    { label: "Selling Price", field: "selling_price", width: "15%", middleAlign: "center", align: "center" },
+    { label: "Stock", field: "stock", width: "15%", middleAlign: "center", align: "center" },
   ];
 
   const loadArticles = async () => {
@@ -60,7 +61,30 @@ export default function GenerateInvoiceModal({ onClose }) {
         columns={columns}
         data={articles}
         loading={loading}
+        height="500px"
+        bottomGap={false}
       />
+      <div className="grid grid-cols-3 gap-4 mt-4">
+        {/* 3 inputs: gross amount, discount, net amount */}
+        <Input
+          label="Gross Amount"
+          type="labelInBox"
+          value=""
+          placeholder="0.00"
+        />
+        <Input
+          label="Gross Amount"
+          type="labelInBox"
+          value=""
+          placeholder="0.00"
+        />
+        <Input
+          label="Gross Amount"
+          type="labelInBox"
+          value=""
+          placeholder="0.00"
+        />
+      </div>
     </Modal>
   );
 }
