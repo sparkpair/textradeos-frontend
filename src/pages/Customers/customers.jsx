@@ -5,9 +5,12 @@ import AddCustomerModal from "../../components/Customers/AddCustomerModal";
 import CustomerDetailsModal from "../../components/Customers/CustomerDetailsModal";
 import Table from "../../components/Table";
 import axiosClient from "../../api/axiosClient";
-import { formatDateWithDay } from "../../utils/dateFormatter";
 import { useToast } from "../../context/ToastContext";
+<<<<<<< HEAD
 import GenerateInvoiceModal from "../../components/Customers/GenerateInvoiceModal";
+=======
+import { extractMongooseMessage } from "../../utils/index";
+>>>>>>> 22cc31097a10ec68fefdb4cd58483281b9e9f51e
 
 export default function Customers() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -56,7 +59,8 @@ export default function Customers() {
       setEditingCustomer(null);
     } catch (error) {
       console.error("Failed to save customer:", error);
-      addToast(error.response?.data?.message || "Failed to save customer", "error");
+
+      addToast(extractMongooseMessage(error.response?.data?.message) || "Failed to save customer", "error");
     }
   };
 
