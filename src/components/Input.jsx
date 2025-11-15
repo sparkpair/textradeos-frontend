@@ -76,10 +76,9 @@ export default function Input({
           {label && <label className="text-gray-800 text-nowrap">{label} {required || '(Optional)'}</label>}
           <input
             ref={inputRef}
-            type={type === "amount" ? "text" : type}
-            value={displayValue || "0.00"}
+            type={type}
+            value={value}
             onChange={handleChange}
-            inputMode={type === "amount" ? (allowDecimal ? "decimal" : "numeric") : undefined}
             className="w-24 text-right bg-transparent focus:outline-none pr-1"
           />
         </div>

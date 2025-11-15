@@ -62,7 +62,10 @@ export default function Table({
   };
 
   return (
-    <div className={`h-[${height}] relative border border-gray-300 rounded-2xl p-1 shadow-sm grid grid-rows-[auto_1fr] overflow-hidden text-nowrap bg-white`}>
+    <div
+      className={`relative border border-gray-300 rounded-2xl p-1 shadow-sm grid grid-rows-[auto_1fr] overflow-hidden text-nowrap bg-white`}
+      style={{ height }}
+    >
       {/* Header */}
       <div
         className="grid bg-[#127475] text-white rounded-xl px-4 py-2 font-semibold"
@@ -79,7 +82,7 @@ export default function Table({
       </div>
 
       {/* Body */}
-      <div className={`overflow-y-auto max-h-[70vh] ${bottomGap ? 'pb-12' : ""}`}>
+      <div className={`overflow-y-auto max-h-[70vh] ${bottomGap ? 'pb-12' : ''}`}>
         {loading ? (
           <div className="p-6 text-center text-gray-500 animate-pulse">
             Loading...
@@ -92,7 +95,7 @@ export default function Table({
               key={row._id || row.id || rowIndex}
               onClick={() => onRowClick && onRowClick(row)}
               onContextMenu={(e) => handleRightClick(e, row)}
-              className="grid border-b border-gray-200 px-4 py-2 hover:bg-gray-100 cursor-pointer transition-colors"
+              className={`grid border-b ${bottomGap ? '' : 'last:border-b-0'} border-gray-200 px-4 py-2 hover:bg-gray-100 cursor-pointer transition-colors`}
               style={{ gridTemplateColumns }}
             >
               {columns.map((col, colIndex) => (
