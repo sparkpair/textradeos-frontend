@@ -82,6 +82,8 @@ export default function Customers() {
   const handleInvoice = (customer) => {
     setIsInvoiceModalOpen(true);
     setInvoicingCustomer(customer);
+    console.log(customer);
+    
   };
 
   const handlePayment = (customer) => {
@@ -163,6 +165,7 @@ export default function Customers() {
               setIsInvoiceModalOpen(false);
               setInvoicingCustomer(null);
             }}
+            invoicingCustomer={invoicingCustomer}
           />
         )}
 

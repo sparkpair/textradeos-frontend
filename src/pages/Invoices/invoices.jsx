@@ -28,10 +28,11 @@ export default function Invoices() {
       
       const flattened = data.map((invoice) => ({
         ...invoice,
-        username: invoice.userId?.username || "-",
-        status: invoice.isActive ? "Active" : "Inactive",
-        reg_date: formatDateWithDay(invoice.registration_date),
+        customerName: invoice.customerId?.name || "-",
+        date: formatDateWithDay(invoice.createdAt),
       }));
+
+      console.log(flattened);
       setInvoices(flattened);
       
     } catch (error) {
@@ -42,44 +43,18 @@ export default function Invoices() {
     }
   };
 
-  const handleAddOrUpdateInvoice = async (formData) => {
-    try {
-      if (editingInvoice) {
-        // 🟢 Update existing
-        await axiosClient.put(`/invoices/${editingInvoice._id}`, formData);
-      } else {
-        // 🟢 Create new
-        await axiosClient.post("/invoices/", formData);
-      }
-      await loadInvoices();
-      setIsModalOpen(false);
-      setEditingInvoice(null);
-    } catch (error) {
-      console.error("Failed to save invoice:", error);
-      addToast(error.response?.data?.message || "Failed to save invoice", "error");
-    }
-  };
-
-  const handleEdit = (invoice) => {
-    setEditingInvoice(invoice);
-    setIsModalOpen(true);
-  };
-
   const columns = [
     { label: "#", render: (_, i) => i + 1, width: "40px" },
-    { label: "Invoice No.", field: "invoice_no", width: "12%" },
-    { label: "Season", field: "season", width: "12%" },
-    { label: "Size", field: "size", width: "15%", align: "center" },
-    { label: "Category", field: "category", width: "18%", align: "center" },
-    { label: "Type", field: "type", width: "10%", align: "center",},
-    { label: "Purchase Price", field: "purchase_price", width: "10%", align: "center",},
-    { label: "Selling Price", field: "selling_price", width: "10%", align: "center" },
-    { label: "Stock", field: "stock", width: "auto", align: "center" },
+    { label: "Date", field: "date", width: "16%" },
+    { label: "Customer", field: "customerName", width: "auto" },
+    { label: "Invoice No.", field: "invoiceNumber", width: "12%" },
+    { label: "Gross Amount", field: "grossAmount", width: "15%", align: "center" },
+    { label: "Discount", field: "discount", width: "15%", align: "center" },
+    { label: "Net Amount", field: "netAmount", width: "15%", align: "center" },
   ];
 
   const contextMenuItems = [
     { label: "View Details", onClick: (invoice) => setSelectedInvoice(invoice) },
-    { label: "Edit", onClick: handleEdit },
   ];
 
   return (
@@ -123,7 +98,6 @@ export default function Invoices() {
           <InvoiceDetailsModal
             invoice={selectedInvoice}
             onClose={() => setSelectedInvoice(null)}
-            onEdit={handleEdit}
           />
         )}
       </AnimatePresence>
