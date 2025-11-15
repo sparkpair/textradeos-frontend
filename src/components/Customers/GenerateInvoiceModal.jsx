@@ -120,7 +120,7 @@ export default function GenerateInvoiceModal({ onClose }) {
         columns={columns}
         data={articles}
         loading={loading}
-        height="500px"
+        height="60vh"
         bottomGap={false}
       />
 
