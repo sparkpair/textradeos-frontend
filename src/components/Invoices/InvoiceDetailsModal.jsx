@@ -11,8 +11,8 @@ export default function InvoiceDetailsModal({ invoice, onClose }) {
     return (item.quantity * item.selling_price_snapshot).toFixed(2);
   };
 
-  const a5Width = 420;
-  const a5Height = 595;
+  const a5Width = 148;
+  const a5Height = 210;
 
   const { user } = useAuth();
 
@@ -20,14 +20,15 @@ export default function InvoiceDetailsModal({ invoice, onClose }) {
     <Modal
       title={`Invoice Details - ${invoice.invoiceNumber}`}
       onClose={onClose}
-      size="lg"
+      size="2xl"
+      className="2xl"
     >
       <div className="flex justify-center">
         <div
-          className="bg-white shadow-md border border-gray-300 p-6 rounded-2xl"
+          className="bg-white shadow-md border border-gray-300 p-6 rounded-2xl text-xs"
           style={{
-            width: `${a5Width}px`,
-            height: `${a5Height}px`,
+            width: `${a5Width}mm`,
+            height: `${a5Height}mm`,
             overflowY: "auto",
           }}
         >
@@ -62,6 +63,7 @@ export default function InvoiceDetailsModal({ invoice, onClose }) {
               { label: "Total", render: (item) => calculateItemTotal(item), width: "100px", align: "center" },
             ]}
             data={invoice.items}
+            size="xs"
             bottomGap={false}
           />
         </div>

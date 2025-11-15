@@ -19,6 +19,7 @@ export default function Table({
   loading = false,
   height = "auto",
   bottomGap = true,
+  size = "normal",
 }) {
   const [contextMenu, setContextMenu] = useState(null);
 
@@ -63,12 +64,12 @@ export default function Table({
 
   return (
     <div
-      className={`relative border border-gray-300 rounded-2xl p-1 shadow-sm grid grid-rows-[auto_1fr] overflow-hidden text-nowrap bg-white`}
+      className={`relative border border-gray-300 p-1 shadow-sm grid grid-rows-[auto_1fr] overflow-hidden text-nowrap bg-white ${size === "xs" ? "text-xs rounded-xl" : "rounded-2xl"}`}
       style={{ height }}
     >
       {/* Header */}
       <div
-        className="grid bg-[#127475] text-white rounded-xl px-4 py-2 font-semibold"
+        className={`grid bg-[#127475] text-white ${size === "xs" ? "px-2.5 py-1.5 rounded-lg" : "px-4 py-2 rounded-xl"} font-semibold`}
         style={{ gridTemplateColumns }}
       >
         {columns.map((col, idx) => (
