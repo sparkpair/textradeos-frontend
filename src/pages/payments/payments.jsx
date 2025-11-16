@@ -66,11 +66,11 @@ export default function Payments() {
 
   const columns = [
     { label: "#", render: (_, i) => i + 1, width: "40px" },
-    { label: "Customer", field: "name", width: "20%" },
-    { label: "Method", field: "method", width: "12%" },
+    { label: "Customer", field: "name", width: "auto" },
+    { label: "Method", field: "method", width: "10%" },
     { label: "Date", field: "entry_date", width: "15%", align: "center" },
     { label: "Reff No.", field: "reff_no", width: "18%", align: "center" },
-    { label: "Payment Date", field: "payment_date", width: "10%", align: "center",},
+    { label: "Payment Date", field: "payment_date", width: "15%", align: "center",},
     { label: "Amount", field: "amount", width: "10%", align: "center",},
   ];
 
