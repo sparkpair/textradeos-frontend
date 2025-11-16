@@ -9,17 +9,11 @@ export default function CustomerDetailsModal({ customer, onClose, onInvoice, onP
   return (
     <Modal title={customer.name} onClose={onClose} size="lg">
       <div className="space-y-2 text-gray-700">
-        <p><strong>Owner:</strong> {customer.owner}</p>
-        <p><strong>Username:</strong> {customer.username}</p>
+        <p><strong>Customer Name:</strong> {customer.name}</p>
+        <p><strong>Person Name:</strong> {customer.person_name}</p>
         <p><strong>Phone:</strong> {customer.phone_no}</p>
-        <p>
-          <strong>Registration Date:</strong>{" "}
-          {customer.registration_date
-            ? new Date(customer.registration_date).toLocaleDateString()
-            : "-"}
-        </p>
-        <p><strong>Type:</strong> {customer.type}</p>
-        <p><strong>Price:</strong> {customer.price}</p>
+        <p><strong>Address:</strong> {customer.address}</p>
+        <p><strong>Balance:</strong> {customer.balance}</p>
         <p>
           <strong>Status:</strong>{" "}
           <span

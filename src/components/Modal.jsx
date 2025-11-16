@@ -33,7 +33,7 @@ export default function Modal({ title, children, onClose, size = "md" }) {
         initial={{ scale: 0.9, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.9, opacity: 0 }}
-        className={`bg-[#fefeff] w-full ${sizes[size]} rounded-2xl shadow-xl p-6 relative max-h-[90vh] overflow-auto`}
+        className={`bg-[#fefeff] w-full ${sizes[size]} rounded-2xl shadow-xl p-6 relative max-h-[90vh] overflow-auto capitalize`}
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}

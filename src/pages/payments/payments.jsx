@@ -6,9 +6,11 @@ import { formatDateWithDay } from "../../utils/index";
 import { useToast } from "../../context/ToastContext";
 import { Users } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import PaymentDetailsModal from "../../components/Payments/PaymentDetailsModal";
+import { AnimatePresence } from "framer-motion";
 
 export default function Payments() {
-  const [editingPayment, setEditingPayment] = useState(null);
+  const [selectedPayment, setSelectedPayment] = useState(null);
   const [payments, setPayments] = useState([]);
   const [loading, setLoading] = useState(false);
   const { addToast } = useToast();
@@ -69,8 +71,8 @@ export default function Payments() {
 
   const columns = [
     { label: "#", render: (_, i) => i + 1, width: "40px" },
-    { label: "Customer", field: "name", width: "auto" },
-    { label: "Method", field: "method", width: "10%" },
+    { label: "Customer", field: "name", width: "auto", className: "capitalize" },
+    { label: "Method", field: "method", width: "10%", className: "capitalize" },
     { label: "Date", field: "entry_date", width: "15%", align: "center" },
     { label: "Reff No.", field: "reff_no", width: "18%", align: "center" },
     { label: "Payment Date", field: "payment_date", width: "15%", align: "center",},
@@ -104,6 +106,16 @@ export default function Payments() {
         }}
         bottomButtonIcon={<Users size={16} />}
       />
+
+      {/* Modals */}
+      <AnimatePresence>
+        {selectedPayment && (
+          <PaymentDetailsModal
+            payment={selectedPayment}
+            onClose={() => setSelectedPayment(null)}
+          />
+        )}
+      </AnimatePresence>
     </div>
   );
 }

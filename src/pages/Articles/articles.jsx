@@ -89,11 +89,11 @@ export default function Articles() {
   const columns = [
     { label: "#", render: (_, i) => i + 1, width: "40px" },
     { label: "Article No.", field: "article_no", width: "12%" },
-    { label: "Season", field: "season", width: "12%" },
-    { label: "Size", field: "size", width: "15%", align: "center" },
-    { label: "Category", field: "category", width: "18%", align: "center" },
-    { label: "Type", field: "type", width: "10%", align: "center",},
-    { label: "Purchase Price", field: "purchase_price", width: "10%", align: "center",},
+    { label: "Season", field: "season", width: "12%", className: "capitalize" },
+    { label: "Size", field: "size", width: "15%", align: "center", className: "capitalize" },
+    { label: "Category", field: "category", width: "18%", align: "center", className: "capitalize" },
+    { label: "Type", field: "type", width: "10%", align: "center", className: "capitalize" },
+    { label: "Purchase Price", field: "purchase_price", width: "10%", align: "center" },
     { label: "Selling Price", field: "selling_price", width: "10%", align: "center" },
     { label: "Stock", field: "stock", width: "auto", align: "center" },
   ];
