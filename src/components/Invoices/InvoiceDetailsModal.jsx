@@ -38,22 +38,22 @@ export default function InvoiceDetailsModal({ invoice, onClose }) {
               overflowY: "auto",
             }}
           >
-            <div className="flex justify-between items-center">
+            <div className="flex justify-between items-center capitalize text-lg font-medium tracking-wide">
               <div className="business-name">{user.name}</div>
               <div className="invoice-number">Sales Invoice</div>
             </div>
 
             <hr className="border-gray-600 my-2" />
 
-            <div className="flex justify-between items-center">
+            <div className="flex justify-between items-center capitalize">
               <div className="customer-details">
-                <p><strong>Customer:</strong> {invoice.customerId?.name || "-"}</p>
-                <p><strong>Contact:</strong> {invoice.customerId?.phone_no || "-"}</p>
+                <p><span className="font-medium">Customer:</span> {invoice.customerId?.name || "-"}</p>
+                <p><span className="font-medium">Contact:</span> {invoice.customerId?.phone_no || "-"}</p>
               </div>
               <div className="invoice-details">
                 {/* date and invoice no */}
-                <p><strong>Date:</strong> {formatDateWithDay(invoice.createdAt)}</p>
-                <p><strong>Invoice No:</strong> {invoice.invoiceNumber}</p>
+                <p><span className="font-medium">Date:</span> {formatDateWithDay(invoice.createdAt)}</p>
+                <p><span className="font-medium">Invoice No:</span> {invoice.invoiceNumber}</p>
               </div>
             </div>
 
@@ -80,15 +80,15 @@ export default function InvoiceDetailsModal({ invoice, onClose }) {
             <div className="flex gap-2">
               <div className="flex-1 border border-gray-600 rounded-lg py-1.5 px-3 flex justify-between">
                 <span>Gross Amount:</span>
-                0.00
+                {invoice.grossAmount.toFixed(2)}
               </div>
               <div className="flex-1 border border-gray-600 rounded-lg py-1.5 px-3 flex justify-between">
-                <span>Gross Amount:</span>
-                0.00
+                <span>Discount:</span>
+                {invoice.discount.toFixed(2)}
               </div>
               <div className="flex-1 border border-gray-600 rounded-lg py-1.5 px-3 flex justify-between">
-                <span>Gross Amount:</span>
-                0.00
+                <span>Net Amount:</span>
+                {invoice.netAmount.toFixed(2)}
               </div>
             </div>
 
