@@ -9,12 +9,17 @@ import { formatDateWithDay } from "../../utils/index";
 import { useToast } from "../../context/ToastContext";
 import { Users } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import Filters from "../../components/Filters";
 
 export default function Invoices() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedInvoice, setSelectedInvoice] = useState(null);
   const [editingInvoice, setEditingInvoice] = useState(null);
+
   const [invoices, setInvoices] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
+  const [filtersActive, setFiltersActive] = useState(false);
+
   const [loading, setLoading] = useState(false);
   const { addToast } = useToast();
   const navigate = useNavigate();
@@ -28,7 +33,7 @@ export default function Invoices() {
     try {
       setLoading(true);
       const { data } = await axiosClient.get("/invoices/");
-      
+
       const flattened = data.map((invoice) => ({
         ...invoice,
         customerName: invoice.customerId?.name || "-",
@@ -37,7 +42,7 @@ export default function Invoices() {
 
       console.log(flattened);
       setInvoices(flattened);
-      
+
     } catch (error) {
       console.error("Failed to load invoices:", error);
       addToast("Failed to load invoices", "error");
@@ -65,15 +70,39 @@ export default function Invoices() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <h1 className="text-3xl font-bold">Invoices</h1>
-        <Button>
-          Filter
-        </Button>
+        <Filters
+          fields={[
+            {
+              name: "invoiceNumber",
+              label: "Invoice No.",
+              type: "text",
+              field: "invoiceNumber",
+            },
+            {
+              name: "customerName",
+              label: "Customer Name",
+              type: "text",
+              field: "customerName",
+            },
+            {
+              name: "date",
+              label: "Date",
+              type: "date",
+              field: "date",
+            },
+          ]}
+          data={invoices}
+          onFiltered={(rows, active) => {
+            setFilteredData(rows);
+            setFiltersActive(active);
+          }}
+        />
       </div>
 
       {/* Table */}
       <Table
         columns={columns}
-        data={invoices}
+        data={filtersActive ? filteredData : invoices}
         onRowClick={(invoice) => setSelectedInvoice(invoice)}
         contextMenuItems={contextMenuItems}
         loading={loading}

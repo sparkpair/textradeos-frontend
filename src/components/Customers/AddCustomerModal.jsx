@@ -29,10 +29,6 @@ export default function AddCustomerModal({ onClose, onSave, initialData }) {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSelectChange = (value) => {
-    setForm({ ...form, type: value });
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSaving(true);

@@ -9,6 +9,7 @@ import { formatDateWithDay } from "../../utils/index";
 import { useToast } from "../../context/ToastContext";
 import { Plus } from "lucide-react";
 import AddStockModal from "../../components/Articles/AddStockModal";
+import Filters from "../../components/Filters";
 
 export default function Articles() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -17,6 +18,8 @@ export default function Articles() {
   const [addStockArticle, setAddStockArticle] = useState(null);
   const [editingArticle, setEditingArticle] = useState(null);
   const [articles, setArticles] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
+  const [filtersActive, setFiltersActive] = useState(false);
   const [loading, setLoading] = useState(false);
   const { addToast } = useToast();
 
@@ -29,15 +32,17 @@ export default function Articles() {
     try {
       setLoading(true);
       const { data } = await axiosClient.get("/articles/");
-      
+
       const flattened = data.map((article) => ({
         ...article,
         username: article.userId?.username || "-",
         status: article.isActive ? "Active" : "Inactive",
         reg_date: formatDateWithDay(article.registration_date),
       }));
+      console.log(flattened);
+
       setArticles(flattened);
-      
+
     } catch (error) {
       console.error("Failed to load articles:", error);
       addToast("Failed to load articles", "error");
@@ -108,22 +113,72 @@ export default function Articles() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <h1 className="text-3xl font-bold">Articles</h1>
-        <Button>
-          Filter
-        </Button>
+        <Filters
+          fields={[
+            { name: "article_no", label: "Article No.", type: "text", field: "article_no" },
+            {
+              name: "season",
+              label: "Season",
+              type: "select",
+              field: "season",
+              options: [
+                { value: "half", label: "Half" },
+                { value: "full", label: "Full" },
+                { value: "winter", label: "Winter" },
+              ],
+            },
+            {
+              name: "size",
+              label: "Size",
+              type: "select",
+              field: "size",
+              options: [
+                { value: "1-2", label: "1-2" },
+                { value: "s-m-l", label: "S-M-L" },
+                { value: "18-20-22", label: "18-20-22" },
+              ],
+            },
+            {
+              name: "category",
+              label: "Category",
+              type: "select",
+              field: "category",
+              options: [
+                { value: "1-pc", label: "1-Pc" },
+                { value: "2-pc", label: "2-Pc" },
+                { value: "3-pc", label: "3-Pc" },
+              ],
+            },
+            {
+              name: "type",
+              label: "Type",
+              type: "select",
+              field: "type",
+              options: [
+                { value: "baba", label: "Baba" },
+                { value: "baby", label: "Baby" },
+              ],
+            },
+          ]}
+          data={articles}
+          onFiltered={(rows, active) => {
+            setFilteredData(rows);
+            setFiltersActive(active);
+          }}
+        />
       </div>
 
       {/* Table */}
       <Table
         columns={columns}
-        data={articles}
+        data={filtersActive ? filteredData : articles}
         onRowClick={(article) => setSelectedArticle(article)}
         contextMenuItems={contextMenuItems}
         loading={loading}
         bottomButtonOnclick={() => {
-            setEditingArticle(null);
-            setIsModalOpen(true);
-          }}
+          setEditingArticle(null);
+          setIsModalOpen(true);
+        }}
         bottomButtonIcon={<Plus size={16} />}
       />
 

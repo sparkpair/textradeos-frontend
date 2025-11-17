@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useSocket } from "../context/SocketContext"; // ✅ import socket context
+import { X } from "lucide-react";
 
 function Notifications() {
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
@@ -96,7 +97,7 @@ function Notifications() {
                 className="text-gray-500 hover:text-gray-700"
                 onClick={() => setIsNotificationOpen(false)}
               >
-                ✕
+                <X size={16} />
               </button>
             </div>
           </div>
