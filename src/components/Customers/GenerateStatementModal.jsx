@@ -3,8 +3,9 @@ import Modal from "../Modal";
 import Input from "../Input";
 import Button from "../Button";
 
-export default function GenerateStatementModal({ onClose, onSave, initialData }) {
+export default function GenerateStatementModal({ onClose, onSave, statementCustomer }) {
   const [form, setForm] = useState({
+    customerId: statementCustomer._id,
     date_from: "",
     date_to: new Date().toISOString().split("T")[0],
   });
@@ -36,7 +37,6 @@ export default function GenerateStatementModal({ onClose, onSave, initialData })
             type="date"
             value={form.date_from}
             onChange={handleChange}
-            placeholder="Enter date from"
             required
           />
           <Input
