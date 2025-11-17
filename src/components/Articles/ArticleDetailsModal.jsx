@@ -1,6 +1,5 @@
 import Modal from "../Modal";
 import Button from "../Button";
-import { formatCurrency } from "../../utils/formatters"; // Assuming you have a formatter utility
 
 // Helper function to render a detail row
 const DetailItem = ({ label, value }) => (
@@ -52,11 +51,11 @@ export default function ArticleDetailsModal({ article, onClose, onEdit, onAddSto
             <div className="space-y-1">
               <DetailItem 
                 label="Purchase Price" 
-                value={formatCurrency(article.purchase_price)} 
+                value={article.purchase_price} 
               />
               <DetailItem 
                 label="Selling Price" 
-                value={formatCurrency(article.selling_price)} 
+                value={article.selling_price} 
               />
             </div>
             
@@ -64,7 +63,7 @@ export default function ArticleDetailsModal({ article, onClose, onEdit, onAddSto
             {/* If article.purchase_price and article.selling_price are numbers:
             <div className="flex justify-between border-t border-gray-300 mt-4 pt-4 text-base font-bold text-indigo-600">
                 <span>Potential Margin</span>
-                <span>{formatCurrency(article.selling_price - article.purchase_price)}</span>
+                <span>{article.selling_price - article.purchase_price}</span>
             </div>
             */}
 
