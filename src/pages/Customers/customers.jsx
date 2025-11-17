@@ -11,6 +11,7 @@ import GenerateInvoiceModal from "../../components/Customers/GenerateInvoiceModa
 import { extractMongooseMessage } from "../../utils/index";
 import InvoiceDetailsModal from "../../components/Invoices/InvoiceDetailsModal";
 import { Plus } from "lucide-react";
+import Filters from "../../components/Filters";
 
 export default function Customers() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -27,6 +28,8 @@ export default function Customers() {
   const [paymentCustomer, setPaymentCustomer] = useState(null);
 
   const [customers, setCustomers] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
+  const [filtersActive, setFiltersActive] = useState(false);
 
   const [loading, setLoading] = useState(false);
 
@@ -41,12 +44,14 @@ export default function Customers() {
     try {
       setLoading(true);
       const { data } = await axiosClient.get("/customers/");
-      
+
       const flattened = data.map((customer) => ({
         ...customer,
         status: customer.isActive ? "Active" : "Inactive",
         address: customer.address || "-",
       }));
+      console.log(flattened);
+
       setCustomers(flattened);
     } catch (error) {
       console.error("Failed to load customers:", error);
@@ -94,7 +99,7 @@ export default function Customers() {
     setIsInvoiceModalOpen(true);
     setInvoicingCustomer(customer);
     console.log(customer);
-    
+
   };
 
   const handlePayment = (customer) => {
@@ -139,22 +144,42 @@ export default function Customers() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <h1 className="text-3xl font-bold">Customers</h1>
-        <Button>
-          Filter
-        </Button>
+        <Filters
+          fields={[
+            { name: "customerName", label: "Customer Name", type: "text", field: "name" },
+            { name: "personName", label: "Person Name", type: "text", field: "person_name" },
+            { name: "phone", label: "Phone No.", type: "text", field: "phone_no" },
+            { name: "address", label: "Address", type: "text", field: "address" },
+            {
+              name: "status",
+              label: "Status",
+              type: "select",
+              field: "status",
+              options: [
+                { value: "active", label: "Active" },
+                { value: "inactive", label: "Inactive" }
+              ]
+            },
+          ]}
+          data={customers}
+          onFiltered={(rows, active) => {
+            setFilteredData(rows);
+            setFiltersActive(active);
+          }}
+        />
       </div>
 
       {/* Table */}
       <Table
         columns={columns}
-        data={customers}
+        data={filtersActive ? filteredData : customers}
         onRowClick={(customer) => setSelectedCustomer(customer)}
         contextMenuItems={contextMenuItems}
         loading={loading}
         bottomButtonOnclick={() => {
-            setEditingCustomer(null);
-            setIsModalOpen(true);
-          }}
+          setEditingCustomer(null);
+          setIsModalOpen(true);
+        }}
         bottomButtonIcon={<Plus size={16} />}
       />
 

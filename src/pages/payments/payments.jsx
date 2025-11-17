@@ -8,10 +8,15 @@ import { Users } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import PaymentDetailsModal from "../../components/Payments/PaymentDetailsModal";
 import { AnimatePresence } from "framer-motion";
+import Filters from "../../components/Filters";
 
 export default function Payments() {
   const [selectedPayment, setSelectedPayment] = useState(null);
+
   const [payments, setPayments] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
+  const [filtersActive, setFiltersActive] = useState(false);
+
   const [loading, setLoading] = useState(false);
   const { addToast } = useToast();
   const navigate = useNavigate();
@@ -25,9 +30,7 @@ export default function Payments() {
     try {
       setLoading(true);
       const { data } = await axiosClient.get("/payments/");
-      console.log(data);
-      
-      
+
       const flattened = data.map((payment) => ({
         ...payment,
         name: payment.customerId.name,
@@ -36,8 +39,10 @@ export default function Payments() {
         clear_date: payment.clear_date ? formatDateWithDay(payment.clear_date) : "-",
         reff_no: payment.cheque_no !== "" ? payment.cheque_no : payment.slip_no !== "" ? payment.slip_no : payment.transaction_id !== "" ? payment.transaction_id : "-",
       }));
+      console.log(flattened);
+
       setPayments(flattened);
-      
+
     } catch (error) {
       console.error("Failed to load payments:", error);
       addToast("Failed to load payments", "error");
@@ -75,8 +80,8 @@ export default function Payments() {
     { label: "Method", field: "method", width: "10%", className: "capitalize" },
     { label: "Date", field: "entry_date", width: "15%", align: "center" },
     { label: "Reff No.", field: "reff_no", width: "18%", align: "center" },
-    { label: "Payment Date", field: "payment_date", width: "15%", align: "center",},
-    { label: "Amount", field: "amount", width: "10%", align: "center",},
+    { label: "Payment Date", field: "payment_date", width: "15%", align: "center", },
+    { label: "Amount", field: "amount", width: "10%", align: "center", },
   ];
 
   const contextMenuItems = [
@@ -89,15 +94,37 @@ export default function Payments() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <h1 className="text-3xl font-bold">Payments</h1>
-        <Button>
-          Filter
-        </Button>
+        <Filters
+          fields={[
+            { name: "customer", label: "Customer", type: "text", field: "name" },
+            {
+              name: "method",
+              label: "Method",
+              type: "select",
+              field: "method",
+              options: [
+                { value: "cash", label: "Cash" },
+                { value: "online", label: "Online" },
+                { value: "slip", label: "Slip" },
+                { value: "cheque", label: "Cheque" },
+              ],
+            },
+            { name: "date", label: "Date", type: "date", field: "entry_date" },
+            { name: "reff_no", label: "Reff No.", type: "text", field: "reff_no" },
+            { name: "payment_date", label: "Payment Date", type: "date", field: "payment_date" },
+          ]}
+          data={payments}
+          onFiltered={(rows, active) => {
+            setFilteredData(rows);
+            setFiltersActive(active);
+          }}
+        />
       </div>
 
       {/* Table */}
       <Table
         columns={columns}
-        data={payments}
+        data={filtersActive ? filteredData : payments}
         onRowClick={(payment) => setSelectedPayment(payment)}
         contextMenuItems={contextMenuItems}
         loading={loading}

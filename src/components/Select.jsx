@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 export default function Select({
   options = [],
   value = null,
-  onChange = () => {},
+  onChange = () => { },
   placeholder = "Select...",
   searchable = true,
   clearable = true,
@@ -25,8 +25,8 @@ export default function Select({
   // filtered options
   const filtered = query
     ? options.filter((o) =>
-        o.label.toLowerCase().includes(query.toLowerCase())
-      )
+      o.label.toLowerCase().includes(query.toLowerCase())
+    )
     : options;
 
   useEffect(() => {
@@ -111,16 +111,20 @@ export default function Select({
 
         <div className="flex items-center gap-2">
           {clearable && selected && (
-            <button
+            <span
               onClick={clearSelection}
+              role="button"
               aria-label="Clear selection"
-              className="p-1 rounded hover:bg-gray-100"
+              className="p-1 rounded hover:bg-gray-100 cursor-pointer"
             >
               <X size={14} />
-            </button>
+            </span>
           )}
 
-          <ChevronDown size={18} className={`transition-transform ${open ? "-rotate-180" : "rotate-0"}`} />
+          <ChevronDown
+            size={18}
+            className={`transition-transform ${open ? "-rotate-180" : "rotate-0"}`}
+          />
         </div>
       </button>
 
