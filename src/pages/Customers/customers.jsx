@@ -44,7 +44,7 @@ export default function Customers() {
       
       const flattened = data.map((customer) => ({
         ...customer,
-        status: customer.isActive ? "Active" : "Inactive",
+        status: customer.isActive ? "Active" : "In Active",
         address: customer.address || "-",
       }));
       setCustomers(flattened);

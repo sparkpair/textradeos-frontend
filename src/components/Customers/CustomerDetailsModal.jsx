@@ -1,5 +1,6 @@
 import Modal from "../Modal";
 import Button from "../Button";
+import DetailItem from "../DetailItem";
 
 export default function CustomerDetailsModal({ customer, onClose, onInvoice, onPayment, onEdit, onToggleStatus }) {
   if (!customer) return null;
@@ -7,32 +8,32 @@ export default function CustomerDetailsModal({ customer, onClose, onInvoice, onP
   const isActive = customer.status === "Active";
 
   return (
-    <Modal title={customer.name} onClose={onClose} size="lg">
-      <div className="space-y-2 text-gray-700">
-        <p><strong>Customer Name:</strong> {customer.name}</p>
-        <p><strong>Person Name:</strong> {customer.person_name}</p>
-        <p><strong>Phone:</strong> {customer.phone_no}</p>
-        <p><strong>Address:</strong> {customer.address}</p>
-        <p><strong>Balance:</strong> {customer.balance}</p>
-        <p>
-          <strong>Status:</strong>{" "}
-          <span
-            className={`inline-block px-3 py-1 rounded-full text-sm font-medium ${
-              isActive ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"
-            }`}
-          >
-            {isActive ? "Active" : "In Active"}
-          </span>
-        </p>
+    <Modal title={`Customer Details - ${customer.name}`} onClose={onClose} size="xl">
+      <hr className="border-gray-300 mt-2 mb-4.5" />
+
+      {/* --- Details Grid --- */}
+      <div className="grid grid-cols-1 gap-x-8 gap-y-4 px-3">
+        {/* Group 1: Core Product Info */}
+        <div className="sm:col-span-1">
+          <h4 className="text-base font-semibold text-gray-800 mb-2 border-b-2 border-[#127475] inline-block">General Info</h4>
+          <div className="space-y-1">
+            <DetailItem label="Person Name" value={customer.person_name} />
+            <DetailItem label="Phone No." value={customer.phone_no} />
+            <DetailItem label="Address" value={customer.address || "-"} />
+            <DetailItem label="Balance" value={customer.balance} />
+            <DetailItem label="Status" value={customer.status} chip={isActive ? 'green' : 'red'} />
+          </div>
+        </div>
       </div>
 
-      <div className="mt-6 flex justify-end gap-2">
+      {/* --- Actions --- */}
+      <div className="mt-8 flex justify-end gap-3">
         <Button
           onClick={() => {
             onClose();
             onInvoice(customer);
           }}
-          className="bg-green-600 hover:bg-green-700 text-white"
+          variant="green-btn"
         >
           Invoice
         </Button>
@@ -42,20 +43,9 @@ export default function CustomerDetailsModal({ customer, onClose, onInvoice, onP
             onClose();
             onPayment(customer);
           }}
-          className="bg-green-600 hover:bg-green-700 text-white"
+          variant="green-btn"
         >
           Payment
-        </Button>
-
-        <Button
-          onClick={() => onToggleStatus && onToggleStatus(customer)}
-          className={`${
-            isActive
-              ? "bg-red-600 hover:bg-red-700 text-white"
-              : "bg-green-600 hover:bg-green-700 text-white"
-          }`}
-        >
-          {isActive ? "In Active" : "Activate"}
         </Button>
 
         <Button
@@ -63,12 +53,25 @@ export default function CustomerDetailsModal({ customer, onClose, onInvoice, onP
             onClose();
             onEdit(customer);
           }}
-          className="bg-blue-600 hover:bg-blue-700 text-white"
+          variant="green-btn"
         >
           Edit
         </Button>
 
-        <Button onClick={onClose} className="bg-gray-300 hover:bg-gray-400">
+        <Button
+          onClick={() => {
+            onClose();
+            onToggleStatus(customer);
+          }}
+          variant={isActive ? 'red-btn' : 'green-btn'}
+        >
+          {isActive ? 'In Active' : 'Active'}
+        </Button>
+
+        <Button 
+          onClick={onClose} 
+          variant="secondary-btn"
+        >
           Close
         </Button>
       </div>
