@@ -12,6 +12,8 @@ import { extractMongooseMessage } from "../../utils/index";
 import InvoiceDetailsModal from "../../components/Invoices/InvoiceDetailsModal";
 import { Plus } from "lucide-react";
 import Filters from "../../components/Filters";
+import GenerateStatementModal from "../../components/Customers/GenerateStatementModal";
+import StatementModal from "../../components/Customers/StatementModal";
 
 export default function Customers() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -20,6 +22,12 @@ export default function Customers() {
 
   const [isInvoiceModalOpen, setIsInvoiceModalOpen] = useState(false);
   const [invoicingCustomer, setInvoicingCustomer] = useState(null);
+
+  const [isGenerateStatementModalOpen, setIsGenerateStatementModalOpen] = useState(false);
+  const [statementCustomer, setStatementCustomer] = useState(null);
+
+  const [isStatementModalOpen, setIsStatementModalOpen] = useState(false);
+  const [statementData, setStatementData] = useState(null);
 
   const [isInvoiceDetailsModalOpen, setIsInvoiceDetailsModalOpen] = useState(false);
   const [generatedInvoice, setGeneratedInvoice] = useState(null);
@@ -47,7 +55,7 @@ export default function Customers() {
 
       const flattened = data.map((customer) => ({
         ...customer,
-        status: customer.isActive ? "Active" : "Inactive",
+        status: customer.isActive ? "Active" : "In Active",
         address: customer.address || "-",
       }));
       console.log(flattened);
@@ -81,7 +89,6 @@ export default function Customers() {
   };
 
   const handleAddCustomerPayment = async (formData) => {
-    console.log("Hello ", formData);
     try {
       const { data } = await axiosClient.post("/payments/", formData);
       await loadCustomers();
@@ -94,6 +101,32 @@ export default function Customers() {
       addToast(extractMongooseMessage(error.response?.data?.message) || "Failed to save customer", "error");
     }
   };
+
+  const handleGenerateStatement = async (formData) => {
+    try {
+      const { customerId, ...dataToSend } = formData;
+      const { data } = await axiosClient.patch(`/customers/${customerId}/statement`, dataToSend );
+      
+      // Assuming you want to reload customers or update UI
+      await loadCustomers();
+      
+      setIsGenerateStatementModalOpen(false);
+      setStatementCustomer(null);
+
+      setStatementData(data);
+      setIsStatementModalOpen(true);
+      
+      addToast("Statement generated successfully", "success");
+    } catch (error) {
+      console.error("Failed to generate statement:", error);
+      addToast(
+        error.response?.data?.message || "Failed to generate statement",
+        "error"
+      );
+      return null;
+    }
+  };
+
 
   const handleInvoice = (customer) => {
     setIsInvoiceModalOpen(true);
@@ -110,6 +143,11 @@ export default function Customers() {
   const handleEdit = (customer) => {
     setEditingCustomer(customer);
     setIsModalOpen(true);
+  };
+
+  const handleStatement = (customer) => {
+    setStatementCustomer(customer);
+    setIsGenerateStatementModalOpen(true);
   };
 
   const columns = [
@@ -195,6 +233,27 @@ export default function Customers() {
             initialData={editingCustomer} // 👈 prefill data
           />
         )}
+        
+        {isGenerateStatementModalOpen && (
+          <GenerateStatementModal
+            onClose={() => {
+              setIsGenerateStatementModalOpen(false);
+              setStatementCustomer(null);
+            }}
+            onSave={handleGenerateStatement}
+            statementCustomer={statementCustomer} // 👈 prefill data
+          />
+        )}
+        
+        {isStatementModalOpen && (
+          <StatementModal
+            onClose={() => {
+              setIsStatementModalOpen(false);
+              setStatementData(null);
+            }}
+            statementData={statementData} // 👈 prefill data
+          />
+        )}
 
         {isInvoiceModalOpen && (
           <GenerateInvoiceModal
@@ -236,6 +295,7 @@ export default function Customers() {
             onInvoice={handleInvoice}
             onPayment={handlePayment}
             onEdit={handleEdit}
+            onStatement={handleStatement}
             onToggleStatus={handleToggleStatus}
           />
         )}

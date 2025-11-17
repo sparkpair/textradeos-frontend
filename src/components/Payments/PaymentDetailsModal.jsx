@@ -1,25 +1,39 @@
 import Modal from "../Modal";
 import Button from "../Button";
 import { formatDateWithDay } from "../../utils/index";
+import DetailItem from "../DetailItem";
 
 export default function PaymentDetailsModal({ payment, onClose }) {
   if (!payment) return null;
 
   return (
     <Modal title="Payment Details" onClose={onClose} size="md">
-      <div className="space-y-2 text-gray-700">
-        <p><strong>Customer Name:</strong> {payment.customerId.name}</p>
-        <p><strong>Method:</strong> {payment.method}</p>
-        <p><strong>Date:</strong> {formatDateWithDay(payment.date)}</p>
-        <p><strong>Reff. No.:</strong> {payment.cheque_no !== "" ? payment.cheque_no : payment.slip_no !== "" ? payment.slip_no : payment.transaction_id !== "" ? payment.transaction_id : "-"}</p>
-        <p><strong>Payment Date:</strong> {payment.cheque_date ? formatDateWithDay(payment.cheque_date) : payment.slip_date ? formatDateWithDay(payment.slip_date) : "-"}</p>
-        <p><strong>Clear Date:</strong> {formatDateWithDay(payment.clear_date)}</p>
-        <p><strong>Bank:</strong> {payment.bank || "-" }</p>
-        <p><strong>Amount:</strong> {payment.amount}</p>
+      <hr className="border-gray-300 mt-2 mb-4.5" />
+
+      {/* --- Details Grid --- */}
+      <div className="grid grid-cols-1 gap-x-8 gap-y-4 px-3">
+        {/* Group 1: Core Product Info */}
+        <div className="sm:col-span-1">
+          <h4 className="text-base font-semibold text-gray-800 mb-2 border-b-2 border-[#127475] inline-block">General Info</h4>
+          <div className="space-y-1">
+            <DetailItem label="Customer Name" value={payment.customerId.name} />
+            <DetailItem label="Method" value={payment.method} />
+            <DetailItem label="Date" value={formatDateWithDay(payment.date)} />
+            <DetailItem label="Reff. No." value={payment.cheque_no !== "" ? payment.cheque_no : payment.slip_no !== "" ? payment.slip_no : payment.transaction_id !== "" ? payment.transaction_id : "-"} />
+            <DetailItem label="Payment Date" value={payment.cheque_date ? formatDateWithDay(payment.cheque_date) : payment.slip_date ? formatDateWithDay(payment.slip_date) : "-"} />
+            <DetailItem label="Clear Date" value={formatDateWithDay(payment.clear_date)} />
+            <DetailItem label="Bank" value={payment.bank || "-" } />
+            <DetailItem label="Amount" value={payment.amount} />
+          </div>
+        </div>
       </div>
 
-      <div className="mt-6 flex justify-end gap-2">
-        <Button onClick={onClose} className="bg-gray-300 hover:bg-gray-400">
+      {/* --- Actions --- */}
+      <div className="mt-8 flex justify-end gap-3">
+        <Button 
+          onClick={onClose} 
+          variant="secondary-btn"
+        >
           Close
         </Button>
       </div>

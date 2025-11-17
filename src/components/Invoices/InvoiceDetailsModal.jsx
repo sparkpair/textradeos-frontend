@@ -104,16 +104,10 @@ export default function InvoiceDetailsModal({ invoice, onClose }) {
 
       {/* Modal Actions */}
       <div className="mt-4 flex justify-end gap-2">
-        <Button
-          onClick={() => {
-            onClose();
-          }}
-          className="bg-blue-600 hover:bg-blue-700 text-white"
+        <Button 
+          onClick={onClose} 
+          variant="secondary-btn"
         >
-          Edit
-        </Button>
-
-        <Button onClick={onClose} className="bg-gray-300 hover:bg-gray-400">
           Close
         </Button>
       </div>
