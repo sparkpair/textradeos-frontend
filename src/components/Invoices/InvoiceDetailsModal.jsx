@@ -21,6 +21,65 @@ export default function InvoiceDetailsModal({ invoice, onClose }) {
     article_no: item.articleId?.article_no || "-",
   }));
 
+  const printInvoice = (divId) => {
+    const element = document.getElementById(divId);
+    if (!element) return;
+
+    // Remove old iframe if exists
+    let oldIframe = document.getElementById("pdfIframe");
+    if (oldIframe) oldIframe.remove();
+
+    // Create a hidden iframe
+    const iframe = document.createElement("iframe");
+    iframe.id = "pdfIframe";
+    iframe.style.position = "absolute";
+    iframe.style.width = "0";
+    iframe.style.height = "0";
+    iframe.style.border = "none";
+    iframe.style.display = "none";
+
+    document.body.appendChild(iframe);
+
+    const doc = iframe.contentDocument || iframe.contentWindow.document;
+    doc.open();
+
+    // Inject current page's styles
+    const styles = Array.from(document.querySelectorAll("link[rel=stylesheet], style"))
+      .map(node => node.outerHTML)
+      .join("\n");
+
+    doc.write(`
+    <html>
+      <head>
+        <title>Invoice</title>
+        ${styles}
+        <style>
+          @page { size: A5; margin: 0; }
+          body { margin:0; padding:0; }
+          #${divId} { width: 148mm; height: auto; }
+        </style>
+      </head>
+      <body>
+        ${element.outerHTML}
+      </body>
+    </html>
+  `);
+
+    doc.close();
+
+    // Wait for iframe to render
+    iframe.onload = () => {
+      try {
+        iframe.contentWindow.focus();
+        // Use browser print with silent download
+        iframe.contentWindow.print();
+        setTimeout(() => iframe.remove(), 1000);
+      } catch (err) {
+        console.error("PDF download failed:", err);
+      }
+    };
+  };
+
   return (
     <Modal
       title={`Invoice Details - ${invoice.invoiceNumber}`}
@@ -105,20 +164,14 @@ export default function InvoiceDetailsModal({ invoice, onClose }) {
 
       {/* Modal Actions */}
       <div className="mt-4 flex justify-end gap-2">
-        <Button 
-          onClick={onClose} 
-          variant="green-btn"
-        >
-          Download
-        </Button>
-        <Button 
-          onClick={onClose} 
+        <Button
+          onClick={() => printInvoice("actual-invoice")}
           variant="green-btn"
         >
           Print
         </Button>
-        <Button 
-          onClick={onClose} 
+        <Button
+          onClick={onClose}
           variant="secondary-btn"
         >
           Close
