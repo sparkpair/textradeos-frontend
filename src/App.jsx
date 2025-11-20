@@ -12,7 +12,7 @@ import Customers from "./pages/Customers/customers";
 import Articles from "./pages/Articles/articles";
 import Invoices from "./pages/Invoices/invoices";
 import Payments from "./pages/payments/payments";
-import InvoicePDF from "./components/InvoicePdf";
+import InvoicePDF from "./components/InvoicePDF";
 
 export default function App() {
   return (
