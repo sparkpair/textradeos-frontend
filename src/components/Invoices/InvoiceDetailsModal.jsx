@@ -3,6 +3,8 @@ import Button from "../Button";
 import { useAuth } from "../../context/AuthContext";
 import { formatDateWithDay } from "../../utils";
 import Table from "../Table";
+import InvoicePDF, { InvoiceDocument } from "../InvoicePDF";
+import { PDFDownloadLink } from "@react-pdf/renderer";
 
 export default function InvoiceDetailsModal({ invoice, onClose }) {
   if (!invoice) return null;
@@ -164,12 +166,20 @@ export default function InvoiceDetailsModal({ invoice, onClose }) {
 
       {/* Modal Actions */}
       <div className="mt-4 flex justify-end gap-2">
-        <Button
-          onClick={() => printInvoice("actual-invoice")}
-          variant="green-btn"
+        <PDFDownloadLink
+          document={
+            <InvoiceDocument
+              user={ user }
+              invoice={ invoice }
+              flattenedItems={ flattenedItems }
+              calculateItemTotal={ calculateItemTotal }
+            />
+          }
+          fileName={`invoice-${invoice.invoiceNumber}.pdf`}
+          className="bg-[#127475] text-white hover:bg-[#0c5f60] active:scale-95 px-4 py-2 rounded-xl"
         >
-          Print
-        </Button>
+          {({ loading }) => (loading ? "Generating..." : "Download")}
+        </PDFDownloadLink>
         <Button
           onClick={onClose}
           variant="secondary-btn"

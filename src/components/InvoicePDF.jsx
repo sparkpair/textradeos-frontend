@@ -24,16 +24,30 @@ const calculateItemTotal = (item) => item.quantity * item.selling_price_snapshot
 // Simple Table Placeholder - This is a common pain point in react-pdf.
 // A full implementation requires more logic, but this shows the structure.
 const Table = ({ columns, data, size, bottomGap }) => {
-    // Determine column widths based on the passed columns prop
+    // 1. Extract numeric widths for fixed columns
+    const fixedWidths = columns
+        .map(col => col.width)
+        .filter(w => w && w !== "auto")
+        .map(w => parseFloat(w));
+
+    const totalFixed = fixedWidths.reduce((a, b) => a + b, 0);
+
+    // 2. Count auto columns
+    const autoColumns = columns.filter(col => !col.width || col.width === "auto").length;
+
+    // 3. Remaining width distributed to auto columns
+    const autoWidth = autoColumns > 0 ? (100 - totalFixed) / autoColumns : 0;
+
+    // 4. Final column width resolver
     const getColumnWidth = (width) => {
-        if (width === "auto" || !width) return `${100 / columns.length}%`; // Fallback for 'auto'
-        return width; // Use the explicit width if provided
+        if (!width || width === "auto") return `${autoWidth}%`;
+        return `${parseFloat(width)}%`;
     };
 
     return (
         <View style={tableStyles.table}>
             {/* Table Header */}
-            <View style={tableStyles.tableRow}>
+            <View style={[tableStyles.tableRow, tableStyles.tableRowHeader]}>
                 {columns.map((col, index) => (
                     <View key={index} style={[tableStyles.tableColHeader, { width: getColumnWidth(col.width), textAlign: col.align || 'left' }]}>
                         <Text>{col.label}</Text>
@@ -42,9 +56,21 @@ const Table = ({ columns, data, size, bottomGap }) => {
             </View>
             {/* Table Rows */}
             {data.map((item, index) => (
-                <View key={index} style={tableStyles.tableRow}>
+                <View
+                    key={index}
+                    style={[
+                        tableStyles.tableRow,
+                        index === data.length - 1 && { borderBottomWidth: 0 } // ✅ remove border for last row
+                    ]}
+                >
                     {columns.map((col, colIndex) => (
-                        <View key={colIndex} style={[tableStyles.tableCol, { width: getColumnWidth(col.width), textAlign: col.align || 'left' }]}>
+                        <View
+                            key={colIndex}
+                            style={[
+                                tableStyles.tableCol,
+                                { width: getColumnWidth(col.width), textAlign: col.align || 'left' }
+                            ]}
+                        >
                             <Text>
                                 {col.render ? col.render(item, index) : item[col.field]}
                             </Text>
@@ -98,8 +124,8 @@ const styles = StyleSheet.create({
         letterSpacing: 0.5, // Equivalent to tracking-wide
     },
     hr: {
-        borderBottomColor: '#4b5563', // border-gray-600
-        borderBottomWidth: 1,
+        borderBottomColor: '#4a5565', // border-gray-600
+        borderBottomWidth: 0.6,
         marginVertical: 7, // Equivalent to my-2 (adjust for better visual fit)
     },
 
@@ -156,21 +182,27 @@ const tableStyles = StyleSheet.create({
         width: "auto",
         borderStyle: "solid",
         borderWidth: 1,
-        borderColor: '#4b5563', // Match hr/summary box border color
+        borderColor: '#d1d5dc', // Match hr/summary box border color
         borderRadius: 10,
+        padding: 3,
+    },
+    tableRowHeader: {
+        backgroundColor: "#127475",
+        color: "#ffff",
+        borderRadius: 7,
+        borderBottomWidth: 0,
     },
     tableRow: {
         flexDirection: "row",
+        padding: "2.5 1.5",
+        borderStyle: 'solid',
+        borderBottomWidth: 1,
+        borderColor: '#ebe6e7',
     },
     // Table Header Cell
     tableColHeader: {
         padding: 4,
         fontSize: 8,
-        backgroundColor: '#f3f4f6', // Equivalent to a light gray background
-        borderStyle: 'solid',
-        borderBottomWidth: 1,
-        borderRightWidth: 1,
-        borderColor: '#4b5563',
         fontWeight: '500',
         textAlign: 'center', // Defaulting to center unless overridden
     },
@@ -178,10 +210,6 @@ const tableStyles = StyleSheet.create({
     tableCol: {
         padding: 4,
         fontSize: 8,
-        borderStyle: 'solid',
-        borderBottomWidth: 1,
-        borderRightWidth: 1,
-        borderColor: '#4b5563',
         textAlign: 'left', // Defaulting to left unless overridden
     },
 });
@@ -189,7 +217,7 @@ const tableStyles = StyleSheet.create({
 // --------------------
 // PDF DOCUMENT
 // --------------------
-const InvoiceDocument = ({ user, invoice, flattenedItems, calculateItemTotal }) => (
+export const InvoiceDocument = ({ user, invoice, flattenedItems, calculateItemTotal }) => (
     <Document>
         <Page size="A5" style={styles.page}>
             {/* Header (Business Name & Sales Invoice) */}
@@ -307,29 +335,36 @@ export default function InvoicePDF() {
     // -----------------------------------
 
     return (
-        <div style={{ padding: "20px" }}>
-            <PDFDownloadLink
-                document={
-                    <InvoiceDocument
-                        user={userMock}
-                        invoice={invoiceMock}
-                        flattenedItems={flattenedItemsMock}
-                        calculateItemTotal={calculateItemTotal}
-                    />
-                }
-                fileName={`invoice-${invoiceMock.invoiceNumber}.pdf`}
-                style={{
-                    backgroundColor: "#2563eb",
-                    color: "white",
-                    padding: "10px 18px",
-                    borderRadius: "6px",
-                    fontSize: "14px",
-                    textDecoration: "none",
-                    fontWeight: "500",
-                }}
-            >
-                {({ loading }) => (loading ? "Generating PDF..." : "Download Invoice PDF")}
-            </PDFDownloadLink>
-        </div>
+        // <PDFViewer style={{ width: "100%", height: "100vh" }}>
+        //     <InvoiceDocument
+        //         user={userMock}
+        //         invoice={invoiceMock}
+        //         flattenedItems={flattenedItemsMock}
+        //         calculateItemTotal={calculateItemTotal}
+        //     />
+        // </PDFViewer>
+
+        <PDFDownloadLink
+            document={
+                <InvoiceDocument
+                    user={userMock}
+                    invoice={invoiceMock}
+                    flattenedItems={flattenedItemsMock}
+                    calculateItemTotal={calculateItemTotal}
+                />
+            }
+            fileName={`invoice-${invoiceMock.invoiceNumber}.pdf`}
+            style={{
+                backgroundColor: "#2563eb",
+                color: "white",
+                padding: "10px 18px",
+                borderRadius: "6px",
+                fontSize: "14px",
+                textDecoration: "none",
+                fontWeight: "500",
+            }}
+        >
+            {({ loading }) => (loading ? "Generating PDF..." : "Download Invoice PDF")}
+        </PDFDownloadLink>
     );
 }
