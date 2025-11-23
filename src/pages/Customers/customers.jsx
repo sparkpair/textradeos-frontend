@@ -14,6 +14,7 @@ import { Plus } from "lucide-react";
 import Filters from "../../components/Filters";
 import GenerateStatementModal from "../../components/Customers/GenerateStatementModal";
 import StatementModal from "../../components/Customers/StatementModal";
+import PrintListBtn from "../../components/PrintListBtn";
 
 export default function Customers() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -105,16 +106,16 @@ export default function Customers() {
   const handleGenerateStatement = async (formData) => {
     try {
       const { customerId, ...dataToSend } = formData;
-      const { data } = await axiosClient.patch(`/customers/${customerId}/statement`, dataToSend );
-      
+      const { data } = await axiosClient.patch(`/customers/${customerId}/statement`, dataToSend);
+
       setIsGenerateStatementModalOpen(false);
       setStatementCustomer(null);
-      
+
       console.log(data);
-      
+
       setStatementData(data);
       setIsStatementModalOpen(true);
-      
+
       addToast("Statement generated successfully", "success");
     } catch (error) {
       console.error("Failed to generate statement:", error);
@@ -150,7 +151,7 @@ export default function Customers() {
   };
 
   const columns = [
-    { label: "#", render: (_, i) => i + 1, width: "40px" },
+    { label: "#", render: (_, i) => i + 1, width: "3%" },
     { label: "Customer Name", field: "name", width: "auto", className: "capitalize" },
     { label: "Person Name", field: "person_name", width: "12%", className: "capitalize" },
     { label: "Phone", field: "phone_no", width: "15%", align: "center" },
@@ -181,29 +182,45 @@ export default function Customers() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <h1 className="text-3xl font-bold">Customers</h1>
-        <Filters
-          fields={[
-            { name: "customerName", label: "Customer Name", type: "text", field: "name" },
-            { name: "personName", label: "Person Name", type: "text", field: "person_name" },
-            { name: "phone", label: "Phone No.", type: "text", field: "phone_no" },
-            { name: "address", label: "Address", type: "text", field: "address" },
-            {
-              name: "status",
-              label: "Status",
-              type: "select",
-              field: "status",
-              options: [
-                { value: "active", label: "Active" },
-                { value: "inactive", label: "Inactive" }
-              ]
-            },
-          ]}
-          data={customers}
-          onFiltered={(rows, active) => {
-            setFilteredData(rows);
-            setFiltersActive(active);
-          }}
-        />
+
+        <div className="flex gap-2">
+          <PrintListBtn
+            columns={columns}
+            data={customers}
+            filtersActive={filtersActive}
+            filteredData={filteredData}
+            topSection={[
+              { title: "Total Records", value: "2" },
+              { title: "Balance", value: "2050" },
+            ]}
+            firstPageRowCount={18}
+            otherPageRowCount={19}
+          />
+
+          <Filters
+            fields={[
+              { name: "customerName", label: "Customer Name", type: "text", field: "name" },
+              { name: "personName", label: "Person Name", type: "text", field: "person_name" },
+              { name: "phone", label: "Phone No.", type: "text", field: "phone_no" },
+              { name: "address", label: "Address", type: "text", field: "address" },
+              {
+                name: "status",
+                label: "Status",
+                type: "select",
+                field: "status",
+                options: [
+                  { value: "active", label: "Active" },
+                  { value: "inactive", label: "Inactive" }
+                ]
+              },
+            ]}
+            data={customers}
+            onFiltered={(rows, active) => {
+              setFilteredData(rows);
+              setFiltersActive(active);
+            }}
+          />
+        </div>
       </div>
 
       {/* Table */}
@@ -232,7 +249,7 @@ export default function Customers() {
             initialData={editingCustomer} // 👈 prefill data
           />
         )}
-        
+
         {isGenerateStatementModalOpen && (
           <GenerateStatementModal
             onClose={() => {
@@ -243,7 +260,7 @@ export default function Customers() {
             statementCustomer={statementCustomer} // 👈 prefill data
           />
         )}
-        
+
         {isStatementModalOpen && (
           <StatementModal
             onClose={() => {

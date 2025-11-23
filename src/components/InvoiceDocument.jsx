@@ -5,68 +5,9 @@ import {
     Document,
     StyleSheet,
     Font,
-    PDFDownloadLink,
 } from "@react-pdf/renderer";
 import { formatDateWithDay } from "../utils";
-
-const Table = ({ columns, data, size, bottomGap }) => {
-    // 1. Extract numeric widths for fixed columns
-    const fixedWidths = columns
-        .map(col => col.width)
-        .filter(w => w && w !== "auto")
-        .map(w => parseFloat(w));
-
-    const totalFixed = fixedWidths.reduce((a, b) => a + b, 0);
-
-    // 2. Count auto columns
-    const autoColumns = columns.filter(col => !col.width || col.width === "auto").length;
-
-    // 3. Remaining width distributed to auto columns
-    const autoWidth = autoColumns > 0 ? (100 - totalFixed) / autoColumns : 0;
-
-    // 4. Final column width resolver
-    const getColumnWidth = (width) => {
-        if (!width || width === "auto") return `${autoWidth}%`;
-        return `${parseFloat(width)}%`;
-    };
-
-    return (
-        <View style={tableStyles.table}>
-            {/* Table Header */}
-            <View style={[tableStyles.tableRow, tableStyles.tableRowHeader]}>
-                {columns.map((col, index) => (
-                    <View key={index} style={[tableStyles.tableColHeader, { width: getColumnWidth(col.width), textAlign: col.align || 'left' }]}>
-                        <Text>{col.label}</Text>
-                    </View>
-                ))}
-            </View>
-            {/* Table Rows */}
-            {data.map((item, index) => (
-                <View
-                    key={index}
-                    style={[
-                        tableStyles.tableRow,
-                        index === data.length - 1 && { borderBottomWidth: 0 } // ✅ remove border for last row
-                    ]}
-                >
-                    {columns.map((col, colIndex) => (
-                        <View
-                            key={colIndex}
-                            style={[
-                                tableStyles.tableCol,
-                                { width: getColumnWidth(col.width), textAlign: col.align || 'left' }
-                            ]}
-                        >
-                            <Text>
-                                {col.render ? col.render(item, index) : item[col.field]}
-                            </Text>
-                        </View>
-                    ))}
-                </View>
-            ))}
-        </View>
-    );
-};
+import DocumentTable from "./DocumentTable";
 
 Font.register({
     family: "Roboto",
@@ -162,44 +103,6 @@ const styles = StyleSheet.create({
     }
 });
 
-const tableStyles = StyleSheet.create({
-    table: {
-        display: "table",
-        width: "auto",
-        borderStyle: "solid",
-        borderWidth: 1,
-        borderColor: '#d1d5dc', // Match hr/summary box border color
-        borderRadius: 10,
-        padding: 3,
-    },
-    tableRowHeader: {
-        backgroundColor: "#127475",
-        color: "#ffff",
-        borderRadius: 7,
-        borderBottomWidth: 0,
-    },
-    tableRow: {
-        flexDirection: "row",
-        padding: "2.5 1.5",
-        borderStyle: 'solid',
-        borderBottomWidth: 1,
-        borderColor: '#ebe6e7',
-    },
-    // Table Header Cell
-    tableColHeader: {
-        padding: 4,
-        fontSize: 8,
-        fontWeight: '500',
-        textAlign: 'center', // Defaulting to center unless overridden
-    },
-    // Table Data Cell
-    tableCol: {
-        padding: 4,
-        fontSize: 8,
-        textAlign: 'left', // Defaulting to left unless overridden
-    },
-});
-
 // --------------------
 // PDF DOCUMENT
 // --------------------
@@ -241,7 +144,7 @@ export default function InvoiceDocument({ user, invoice, flattenedItems, calcula
 
                 {/* Line Items Table */}
                 <View style={styles.tableWrapper}>
-                    <Table
+                    <DocumentTable
                         columns={[
                             // s no, article_no, quantity, price
                             { label: "#", render: (_, i) => i + 1, width: "7%", align: "left" },
@@ -251,8 +154,6 @@ export default function InvoiceDocument({ user, invoice, flattenedItems, calcula
                             { label: "Total", render: (item) => calculateItemTotal(item).toFixed(1), width: "20%", align: "center" },
                         ]}
                         data={flattenedItems}
-                        size="xs"
-                        bottomGap={false}
                     />
                 </View>
 
