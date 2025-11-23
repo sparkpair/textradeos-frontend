@@ -49,3 +49,9 @@ export const generateMockData = (days = 30) => {
   }
   return data;
 };
+
+export const formatAmount = (num) => {
+  // Only show K for values >= 10,000 to keep low values readable
+  if (num >= 10000) return `PKR ${(num / 1000).toFixed(1)}k`;
+  return `PKR ${Math.round(num).toLocaleString()}`;
+};
