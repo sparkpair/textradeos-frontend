@@ -12,6 +12,7 @@ import Customers from "./pages/Customers/customers";
 import Articles from "./pages/Articles/articles";
 import Invoices from "./pages/Invoices/invoices";
 import Payments from "./pages/payments/payments";
+import Subscriptions from "./pages/Subscriptions/subscriptions";
 import { useEffect } from "react";
 
 export default function App() {
@@ -38,6 +39,14 @@ export default function App() {
                   element={
                     <PrivateRoute roles={["developer"]}>
                       <Businesses />
+                    </PrivateRoute>
+                  }
+                />
+                <Route
+                  path="/subscriptions"
+                  element={
+                    <PrivateRoute roles={["developer"]}>
+                      <Subscriptions />
                     </PrivateRoute>
                   }
                 />
