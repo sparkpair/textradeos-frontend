@@ -70,7 +70,7 @@ export default function DeveloperDashboard() {
     },
     {
       label: "Total Revenue",
-      value: `PKR ${devStats.totalRevenue.toLocaleString()}`,
+      value: `PKR ${devStats.totalRevenue?.toLocaleString()}`,
       icon: Banknote,
       color: "text-green-600",
       bgColor: "bg-green-100",
