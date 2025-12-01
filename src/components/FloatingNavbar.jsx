@@ -6,6 +6,7 @@ import Dropdown from "./Dropdown";
 import { useAuth } from "../context/AuthContext";
 import { useToast } from "../context/ToastContext";
 import { useLoader } from "../context/LoaderContext";
+import axiosClient from "../api/axiosClient";
 
 function FloatingNavbar({ onMenuClick }) {
   const { user, logout } = useAuth();
@@ -17,6 +18,25 @@ function FloatingNavbar({ onMenuClick }) {
 
   // ✅ simple helper for readability
   const hasRole = (roles) => roles.includes(user?.role);
+
+  const downloadExcel = async () => {
+    const res = await axiosClient.get("/export-data", {
+      responseType: "blob",
+    });
+
+    const url = window.URL.createObjectURL(
+      new Blob([res.data], {
+        type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      })
+    );
+
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `${user?.businessId?.name} Data.xlsx`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+  };
 
   return (
     <div className="fixed bottom-3 left-1/2 -translate-x-1/2 flex items-center justify-between space-x-1 bg-[#f8fbfb] shadow-md border border-gray-300 p-1 rounded-2xl z-50">
@@ -49,7 +69,7 @@ function FloatingNavbar({ onMenuClick }) {
             <Building2 size={20} />
           </Button>
         )}
-        
+
         {/* 🔹 Businesses – developer only */}
         {hasRole(["developer"]) && (
           <Button
@@ -113,6 +133,24 @@ function FloatingNavbar({ onMenuClick }) {
         <div className="px-3 py-1.5 text-gray-600 rounded-md cursor-default">
           {user?.name ? `Hi, ${user.name}` : "Account"}
         </div>
+        {user?.role != "developer" && (
+          <div className="px-3 py-1.5 text-gray-600 rounded-md cursor-pointer">
+            <button
+              className="w-full text-left"
+              onClick={async () => {
+                showLoader();
+                try {
+                  await downloadExcel();
+                  addToast("Exported Successfully!", "success");
+                } finally {
+                  hideLoader();
+                }
+              }}
+            >
+              Export Data
+            </button>
+          </div>
+        )}
         <div className="px-3 py-1.5 bg-red-50 text-red-800 rounded-md cursor-pointer">
           <button
             className="w-full text-left"
