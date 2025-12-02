@@ -32,7 +32,7 @@ function FloatingNavbar({ onMenuClick }) {
 
     const a = document.createElement("a");
     a.href = url;
-    a.download = `${user?.businessId?.name} Data.xlsx`;
+    a.download = `${ user?.businessId.name || user?.businessName || "Business" } Data.xlsx`;
     document.body.appendChild(a);
     a.click();
     a.remove();
