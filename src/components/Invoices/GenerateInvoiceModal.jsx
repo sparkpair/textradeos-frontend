@@ -96,6 +96,7 @@ export default function AddInvoiceModal({ onClose, onSave, initialData }) {
           <Select
             label="Size"
             options={[
+              { value: "0", label: "0" },
               { value: "1-2", label: "1-2" },
               { value: "s-m-l", label: "S-M-L" },
               { value: "18-20-22", label: "18-20-22" },

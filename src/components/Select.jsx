@@ -101,7 +101,7 @@ export default function Select({
         aria-expanded={open}
         onClick={() => {
           setOpen((v) => !v);
-          setTimeout(() => inputRef.current && inputRef.current.focus(), 30);
+          // setTimeout(() => inputRef.current && inputRef.current.focus(), 30);
         }}
         className={`w-full flex items-center justify-between rounded-xl bg-[#f8fbfb] border border-gray-300 text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#127475] ps-4 p-2.5`}
       >
