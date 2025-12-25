@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Button from "./Button";
+import { useAuth } from "../context/AuthContext";
 
 export default function Table({
   columns = [],
@@ -14,6 +15,7 @@ export default function Table({
   bottomButtonOnclick = null,
   bottomButtonIcon = null,
 }) {
+  const { user } = useAuth();
   const [contextMenu, setContextMenu] = useState(null);
 
   // NEW: Sorting State
@@ -163,8 +165,12 @@ export default function Table({
         </div>
       )}
 
-      {bottomButtonOnclick && (
-        <Button variant="border-btn" className="absolute bottom-4 right-4" onClick={bottomButtonOnclick}>
+      {bottomButtonOnclick && !user?.isReadOnly && (
+        <Button 
+          variant="border-btn" 
+          className="absolute bottom-4 right-4" 
+          onClick={bottomButtonOnclick}
+        >
           {bottomButtonIcon}
         </Button>
       )}

@@ -19,19 +19,14 @@ export const AuthProvider = ({ children }) => {
       }
 
       try {
-        const { data } = await axiosClient.get("/auth/status", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-
-        setUser(data.user); // user is active, and business too if applicable
+        const { data } = await axiosClient.get("/auth/status");
+        setUser(data.user); // data.user will now have isReadOnly
       } catch (err) {
-        console.log("Auth check failed:", err.response?.data?.message || err.message);
-        logout(); // logout if inactive
+        logout();
       } finally {
         setLoading(false);
       }
     };
-
     checkAuth();
   }, []);
 
@@ -39,7 +34,7 @@ export const AuthProvider = ({ children }) => {
     localStorage.setItem("token", data.token);
     localStorage.setItem("user", JSON.stringify(data));
     localStorage.setItem("sessionId", data.sessionId);
-    setUser(data);
+    setUser(data); // data contains isReadOnly from login response
   };
 
   const logout = async () => {

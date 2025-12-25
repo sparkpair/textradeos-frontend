@@ -1,8 +1,10 @@
 import Modal from "../Modal";
 import Button from "../Button";
 import DetailItem from "../DetailItem";
+import { useAuth } from "../../context/AuthContext";
 
 export default function CustomerDetailsModal({ customer, onClose, onInvoice, onPayment, onEdit, onStatement, onToggleStatus }) {
+  const user = useAuth();
   if (!customer) return null;
 
   const isActive = customer.status === "Active";
@@ -38,45 +40,51 @@ export default function CustomerDetailsModal({ customer, onClose, onInvoice, onP
           Statement
         </Button>
 
-        <Button
-          onClick={() => {
-            onClose();
-            onInvoice(customer);
-          }}
-          variant="green-btn"
-        >
-          Invoice
-        </Button>
+        {user?.isReadOnly &&
+          ( 
+            <>
+              <Button
+                onClick={() => {
+                  onClose();
+                  onInvoice(customer);
+                }}
+                variant="green-btn"
+              >
+                Invoice
+              </Button>
 
-        <Button
-          onClick={() => {
-            onClose();
-            onPayment(customer);
-          }}
-          variant="green-btn"
-        >
-          Payment
-        </Button>
+              <Button
+                onClick={() => {
+                  onClose();
+                  onPayment(customer);
+                }}
+                variant="green-btn"
+              >
+                Payment
+              </Button>
 
-        <Button
-          onClick={() => {
-            onClose();
-            onEdit(customer);
-          }}
-          variant="green-btn"
-        >
-          Edit
-        </Button>
+              <Button
+                onClick={() => {
+                  onClose();
+                  onEdit(customer);
+                }}
+                variant="green-btn"
+              >
+                Edit
+              </Button>
 
-        <Button
-          onClick={() => {
-            onClose();
-            onToggleStatus(customer);
-          }}
-          variant={isActive ? 'red-btn' : 'green-btn'}
-        >
-          {isActive ? 'In Active' : 'Active'}
-        </Button>
+              <Button
+                onClick={() => {
+                  onClose();
+                  onToggleStatus(customer);
+                }}
+                variant={isActive ? 'red-btn' : 'green-btn'}
+              >
+                {isActive ? 'In Active' : 'Active'}
+              </Button>
+            </>
+          )
+        }
       </div>
     </Modal>
   );

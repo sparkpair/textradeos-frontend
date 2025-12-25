@@ -137,6 +137,16 @@ function FloatingNavbar({ onMenuClick }) {
           <div className="px-3 py-1.5 text-gray-600 rounded-md cursor-pointer">
             <button
               className="w-full text-left"
+              onClick={() => navigate('/subscription-status')}
+            >
+              Subscription Status
+            </button>
+          </div>
+        )}
+        {user?.role != "developer" && (
+          <div className="px-3 py-1.5 text-gray-600 rounded-md cursor-pointer">
+            <button
+              className="w-full text-left"
               onClick={async () => {
                 showLoader();
                 try {

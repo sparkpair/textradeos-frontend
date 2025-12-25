@@ -13,6 +13,7 @@ import Articles from "./pages/Articles/articles";
 import Invoices from "./pages/Invoices/invoices";
 import Payments from "./pages/payments/payments";
 import Subscriptions from "./pages/Subscriptions/subscriptions";
+import SubscriptionStatus from "./pages/Subscriptions/SubscriptionStatus";
 import { useEffect } from "react";
 
 export default function App() {
@@ -79,6 +80,14 @@ export default function App() {
                   element={
                     <PrivateRoute roles={["user"]}>
                       <Payments />
+                    </PrivateRoute>
+                  }
+                />
+                <Route
+                  path="/subscription-status"
+                  element={
+                    <PrivateRoute roles={["user"]}>
+                      <SubscriptionStatus />
                     </PrivateRoute>
                   }
                 />

@@ -1,9 +1,11 @@
 import Modal from "../Modal";
 import Button from "../Button";
 import DetailItem from "../DetailItem";
+import { useAuth } from "../../context/AuthContext";
 
 
 export default function ArticleDetailsModal({ article, onClose, onEdit, onAddStock }) {
+  const user = useAuth();
   if (!article) return null;
 
   const isActive = article.status === "Active";
@@ -43,25 +45,32 @@ export default function ArticleDetailsModal({ article, onClose, onEdit, onAddSto
 
       {/* --- Actions --- */}
       <div className="mt-8 flex justify-end gap-3">
-        <Button
-          onClick={() => {
-            onClose();
-            onAddStock(article);
-          }}
-          variant="green-btn"
-        >
-          Add Stock
-        </Button>
+        
+        {user?.isReadOnly &&
+          ( 
+            <>
+              <Button
+                onClick={() => {
+                  onClose();
+                  onAddStock(article);
+                }}
+                variant="green-btn"
+              >
+                Add Stock
+              </Button>
 
-        <Button
-          onClick={() => {
-            onClose();
-            onEdit(article);
-          }}
-          variant="green-btn"
-        >
-          Edit Article
-        </Button>
+              <Button
+                onClick={() => {
+                  onClose();
+                  onEdit(article);
+                }}
+                variant="green-btn"
+              >
+                Edit Article
+              </Button>
+            </>
+          )
+        }
 
         <Button 
           onClick={onClose} 
