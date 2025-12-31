@@ -1,16 +1,23 @@
 import { createContext, useState, useContext, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import axiosClient from "../api/axiosClient";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
+  const location = useLocation(); // 👈 ROUTE LISTENER
+  const navigate = useNavigate();
+
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // 🔹 Check user & business status from DB
+  // 🔁 RUNS ON:
+  // ✔ App load
+  // ✔ EVERY route change
   useEffect(() => {
     const checkAuth = async () => {
       setLoading(true);
+
       const token = localStorage.getItem("token");
       if (!token) {
         setUser(null);
@@ -20,24 +27,34 @@ export const AuthProvider = ({ children }) => {
 
       try {
         const { data } = await axiosClient.get("/auth/status");
-        setUser(data.user); // data.user will now have isReadOnly
+
+        // ❌ Business inactive OR invalid response
+        if (!data?.user || !data?.user?.businessId?.isActive && data.user.role !== 'developer') {
+          await logout(false);
+          return;
+        }
+
+        setUser(data.user); // includes isReadOnly, sessionActive
       } catch (err) {
-        logout();
+        await logout(false);
       } finally {
         setLoading(false);
       }
     };
+
     checkAuth();
-  }, []);
+  }, [location.pathname]); // 👈 MAIN FIX
 
   const login = (data) => {
     localStorage.setItem("token", data.token);
     localStorage.setItem("user", JSON.stringify(data));
     localStorage.setItem("sessionId", data.sessionId);
-    setUser(data); // data contains isReadOnly from login response
+
+    setUser(data);
+    navigate("/dashboard", { replace: true });
   };
 
-  const logout = async () => {
+  const logout = async (redirect = true) => {
     const sessionId = localStorage.getItem("sessionId");
 
     if (sessionId) {
@@ -50,6 +67,10 @@ export const AuthProvider = ({ children }) => {
 
     localStorage.clear();
     setUser(null);
+
+    if (redirect) {
+      navigate("/login", { replace: true });
+    }
   };
 
   return (

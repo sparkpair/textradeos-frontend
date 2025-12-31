@@ -1,11 +1,13 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
 import { LoaderProvider } from "./context/LoaderContext";
+
 import Login from "./pages/Login";
 import Unauthorized from "./pages/Unauthorized";
 import Dashboard from "./pages/Dashboard";
 import PrivateRoute from "./routes/PrivateRoute";
 import Layout from "./layouts/Layout";
+
 import Businesses from "./pages/Businesses/businesses";
 import Customers from "./pages/Customers/customers";
 import Articles from "./pages/Articles/articles";
@@ -13,17 +15,17 @@ import Invoices from "./pages/Invoices/invoices";
 import Payments from "./pages/payments/payments";
 import Subscriptions from "./pages/Subscriptions/subscriptions";
 import SubscriptionStatus from "./pages/Subscriptions/SubscriptionStatus";
-import { useEffect } from "react";
 
 export default function App() {
   return (
-    <AuthProvider>
-      <LoaderProvider> {/* ✅ wrap App with LoaderProvider */}
-        <Router>
+    <Router>
+      <AuthProvider>
+        <LoaderProvider>
           <Routes>
             <Route path="/" element={<Navigate to="/login" replace />} />
             <Route path="/login" element={<Login />} />
             <Route path="/unauthorized" element={<Unauthorized />} />
+
             <Route element={<Layout />}>
               <Route
                 path="/dashboard"
@@ -33,6 +35,7 @@ export default function App() {
                   </PrivateRoute>
                 }
               />
+
               <Route
                 path="/businesses"
                 element={
@@ -41,6 +44,7 @@ export default function App() {
                   </PrivateRoute>
                 }
               />
+
               <Route
                 path="/subscriptions"
                 element={
@@ -49,6 +53,7 @@ export default function App() {
                   </PrivateRoute>
                 }
               />
+
               <Route
                 path="/customers"
                 element={
@@ -57,6 +62,7 @@ export default function App() {
                   </PrivateRoute>
                 }
               />
+
               <Route
                 path="/articles"
                 element={
@@ -65,6 +71,7 @@ export default function App() {
                   </PrivateRoute>
                 }
               />
+
               <Route
                 path="/invoices"
                 element={
@@ -73,6 +80,7 @@ export default function App() {
                   </PrivateRoute>
                 }
               />
+
               <Route
                 path="/payments"
                 element={
@@ -81,6 +89,7 @@ export default function App() {
                   </PrivateRoute>
                 }
               />
+
               <Route
                 path="/subscription-status"
                 element={
@@ -91,9 +100,8 @@ export default function App() {
               />
             </Route>
           </Routes>
-        </Router>
-      </LoaderProvider>
-    </AuthProvider>
+        </LoaderProvider>
+      </AuthProvider>
+    </Router>
   );
 }
-
